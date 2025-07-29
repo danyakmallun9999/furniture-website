@@ -6,11 +6,16 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\FinancialReportController;
+use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// --- Rute Area Publik ---
+Route::get('/', [PublicController::class, 'homepage'])->name('homepage'); // Homepage
+Route::get('/e-catalog', [PublicController::class, 'catalog'])->name('catalog.index'); // Daftar Produk (E-Catalog)
+Route::get('/e-catalog/{product}', [PublicController::class, 'productDetail'])->name('catalog.show'); // Detail Produk
+Route::get('/about', [PublicController::class, 'about'])->name('about.index'); // Tentang Kami
+Route::get('/contact', [PublicController::class, 'contact'])->name('contact.index'); // Kontak Kami
+
 
 Route::get('/dashboard', [DashboardController::class, 'index']) // Ubah baris ini
     ->middleware(['auth', 'verified'])

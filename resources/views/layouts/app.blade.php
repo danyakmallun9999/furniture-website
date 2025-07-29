@@ -42,6 +42,11 @@
                             </x-nav-link>
                         </li>
                         <li class="mb-2">
+                            <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')"> {{-- INI BARIS BARU --}}
+                                {{ __('Kategori Produk') }}
+                            </x-nav-link>
+                        </li>
+                        <li class="mb-2">
                             <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')"> {{-- Nanti kita buat route ini --}}
                                 {{ __('Produk') }}
                             </x-nav-link>
