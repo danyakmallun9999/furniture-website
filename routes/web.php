@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Admin\FinancialReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,9 +33,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('transactions', TransactionController::class)->except(['show']);
 
     // Rute Dummy untuk Laporan Keuangan
-    Route::get('/reports/financial', function () {
-        return view('admin.reports.financial'); // Nanti kita buat file ini
-    })->name('reports.financial');
+    Route::get('/reports/financial', [FinancialReportController::class, 'index'])->name('reports.financial');
+    Route::get('/reports/financial/export', [FinancialReportController::class, 'export'])->name('reports.financial.export');
+    Route::get('/reports/financial/import', [FinancialReportController::class, 'showImportForm'])->name('reports.financial.import');
+    Route::post('/reports/financial/import', [FinancialReportController::class, 'import'])->name('reports.financial.do_import');
+
 
     // --- Akhir Rute Admin Panel Anda ---
 });
