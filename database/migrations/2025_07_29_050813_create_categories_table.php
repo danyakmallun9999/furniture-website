@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('name')->unique(); // Nama kategori (misal: Meja, Kursi)
+            $table->string('slug')->unique(); // Untuk URL yang rapi (misal: meja, kursi)
+            $table->text('description')->nullable(); // Deskripsi kategori (opsional)
+            $table->timestamps(); // created_at dan updated_at
         });
     }
 
