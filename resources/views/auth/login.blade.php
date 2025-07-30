@@ -16,7 +16,6 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        /* Pastikan animasi ini ada di app.css Anda, jika tidak, bisa diletakkan di sini sementara */
         @keyframes fade-in-up {
             from {
                 opacity: 0;
@@ -105,23 +104,6 @@
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
-
-                    <div class="flex items-center justify-between">
-                        <label for="remember_me" class="inline-flex items-center">
-                            <input id="remember_me" type="checkbox"
-                                class="h-4 w-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500"
-                                name="remember">
-                            <span class="ml-2 text-sm text-gray-600">Ingat Saya</span>
-                        </label>
-
-                        @if (Route::has('password.request'))
-                            <a class="font-medium text-sm text-emerald-600 hover:text-emerald-500 hover:underline transition-colors duration-200"
-                                href="{{ route('password.request') }}">
-                                Lupa Kata Sandi?
-                            </a>
-                        @endif
-                    </div>
-
                     <div>
                         <button type="submit"
                             class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl text-lg font-semibold text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all duration-300 transform hover:scale-105">

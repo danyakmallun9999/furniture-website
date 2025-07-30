@@ -31,8 +31,8 @@
                     </h1>
 
                     <p class="text-lg text-gray-600 mb-8 max-w-lg leading-relaxed">
-                        Donec rutrum congue leo eget malesuada. Vestibulum ac diam sit amet quam vehicula elementum sed
-                        sit amet dui. Cras ultricies ligula sed magna dictum porta.
+                        Kami menyediakan berbagai pilihan furnitur berkualitas tinggi yang dirancang untuk mempercantik
+                        setiap sudut rumah Anda dengan sentuhan modern dan fungsionalitas terbaik.
                     </p>
 
                     <div class="flex flex-col sm:flex-row gap-4">
@@ -282,9 +282,7 @@
                         @endfor
                     </div>
                     <p class="text-gray-700 mb-6 italic">
-                        "Donec rutrum congue leo eget malesuada. Vestibulum rutrum quam vitae fringilla ultricies.
-                        Mauris auctor elit at imperdiet imperdiet, lorem ipsum consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore."
+                        "Produk furnitur dari sini benar-benar mengubah suasana rumah saya menjadi lebih modern dan nyaman. Kualitasnya sangat baik dan tahan lama. Saya sangat merekomendasikannya!"
                     </p>
                     <div class="flex items-center">
                         <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
@@ -314,8 +312,7 @@
                         @endfor
                     </div>
                     <p class="text-gray-700 mb-6 italic">
-                        "Vestibulum rutrum quam vitae fringilla ultricies. Mauris auctor elit at imperdiet imperdiet.
-                        Donec rutrum congue leo eget malesuada. Vestibulum ac diam sit amet quam vehicula elementum."
+                        "Saya sangat terkesan dengan pilihan desain yang unik dan modern. Setiap produk menunjukkan sentuhan seni dan fungsionalitas. Pelayanan pelanggan juga luar biasa!"
                     </p>
                     <div class="flex items-center">
                         <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
@@ -345,8 +342,7 @@
                         @endfor
                     </div>
                     <p class="text-gray-700 mb-6 italic">
-                        "Mauris auctor elit at imperdiet imperdiet, lorem ipsum dolor sit amet consectetur adipiscing
-                        elit. Donec rutrum congue leo eget malesuada. Vestibulum rutrum quam vitae fringilla."
+                        "Dari proses pemesanan hingga pengiriman, semuanya berjalan lancar. Furniturnya tiba dengan aman dan persis seperti yang saya harapkan. Benar-benar profesional!"
                     </p>
                     <div class="flex items-center">
                         <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
