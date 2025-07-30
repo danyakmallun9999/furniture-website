@@ -14,7 +14,7 @@
                 Tentang Kami
             </h1>
             <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-                Didirikan pada tahun 20XX, <span class="font-semibold text-emerald-700">[Nama Industri Mebel Anda]</span>
+                Didirikan pada tahun 2000, <span class="font-semibold text-emerald-700">Ajining Furniture</span>
                 telah menjadi produsen mebel kayu terkemuka di Indonesia, dikenal akan komitmen kami terhadap kualitas,
                 keahlian tradisional, dan desain inovatif.
             </p>
