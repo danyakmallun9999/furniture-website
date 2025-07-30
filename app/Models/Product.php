@@ -17,16 +17,16 @@ class Product extends Model
     protected $fillable = [
         'category_id',
         'name',
-        'product_type', // Kolom baru
-        'motif', // Kolom baru
-        'price', // Kolom baru
-        'short_description', // Kolom baru
-        'is_customizable', // Kolom baru
+        'product_type',
+        'motif',
+        'price',
+        'short_description',
+        'is_customizable',
         'description',
         'wood_type',
         'dimensions',
         'finishing',
-        'main_image_path',
+        'main_image_path', // Ini masih kita pertahankan untuk gambar utama
     ];
 
     /**
@@ -35,5 +35,14 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Get the images for the product.
+     * Ini adalah relasi baru untuk multiple images.
+     */
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
     }
 }

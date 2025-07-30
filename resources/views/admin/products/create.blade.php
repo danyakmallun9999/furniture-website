@@ -121,6 +121,22 @@
                         <x-input-error :messages="$errors->get('main_image')" class="mt-2" />
                     </div>
 
+                    {{-- Input untuk multiple images --}}
+                    <div class="mb-4">
+                        <x-input-label for="additional_images" :value="__('Gambar Tambahan Produk (Opsional, bisa pilih banyak)')" />
+                        <input type="file" id="additional_images" name="additional_images[]" multiple
+                            class="block w-full text-sm text-gray-500
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-md file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-blue-50 file:text-blue-700
+                            hover:file:bg-blue-100 dark:file:bg-blue-700 dark:file:text-white dark:hover:file:bg-blue-600" />
+                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Format: JPG, PNG, GIF, SVG (Max 2MB per gambar)
+                        </p>
+                        <x-input-error :messages="$errors->get('additional_images')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('additional_images.*')" class="mt-2" /> {{-- Untuk error tiap file --}}
+                    </div>
+
                     <div class="flex items-center justify-end mt-4">
                         <a href="{{ route('products.index') }}"
                             class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 mr-4">Batal</a>
