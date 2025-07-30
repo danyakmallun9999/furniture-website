@@ -32,9 +32,11 @@ class PublicController extends Controller
                 return $query->where('category_id', $categoryId);
             })
             ->when($search, function ($query, $search) {
-                return $query->where('name', 'like', '%' . $search . '%')
-                             ->orWhere('description', 'like', '%' . $search . '%')
-                             ->orWhere('wood_type', 'like', '%' . $search . '%');
+                return $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', '%' . $search . '%')
+                      ->orWhere('description', 'like', '%' . $search . '%')
+                      ->orWhere('wood_type', 'like', '%' . $search . '%');
+                });
             })
             ->latest()
             ->paginate(9); // Tampilkan 9 produk per halaman
