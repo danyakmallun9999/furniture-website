@@ -4,220 +4,361 @@
 
 Website E-Catalog Mebel Kayu Modern adalah platform digital yang dirancang untuk industri mebel kayu, menampilkan produk-produk berkualitas tinggi dalam format katalog interaktif dan menyediakan sistem manajemen internal yang efisien. Proyek ini memadukan estetika desain yang modern dan minimalis dengan fungsionalitas yang kuat untuk mendukung operasional bisnis mebel.
 
----
+## 📋 Daftar Isi
 
-## Galeri & Screenshot
-
-Lihat [galeri lengkap screenshot proyek ini](screenshots.md) untuk mendapatkan gambaran visual dari berbagai fitur.
-
-## Daftar Isi
-
-- [Fitur Utama](#fitur-utama)
-- [Teknologi yang Digunakan](#teknologi-yang-digunakan)
-- [Persyaratan Sistem](#persyaratan-sistem)
-- [Panduan Instalasi (Lokal)](#panduan-instalasi-lokal)
-- [Penggunaan Aplikasi](#penggunaan-aplikasi)
-- [Struktur Proyek](#struktur-proyek)
-- [Pengembangan Selanjutnya](#pengembangan-selanjutnya)
-- [Lisensi](#lisensi)
+- [🎯 Fitur Utama](#-fitur-utama)
+- [🛠️ Teknologi yang Digunakan](#️-teknologi-yang-digunakan)
+- [⚙️ Persyaratan Sistem](#️-persyaratan-sistem)
+- [🚀 Panduan Instalasi](#-panduan-instalasi)
+- [📱 Penggunaan Aplikasi](#-penggunaan-aplikasi)
+- [📁 Struktur Proyek](#-struktur-proyek)
+- [🔧 Konfigurasi](#-konfigurasi)
+- [📸 Galeri & Screenshot](#-galeri--screenshot)
+- [🔄 Pengembangan Selanjutnya](#-pengembangan-selanjutnya)
+- [📄 Lisensi](#-lisensi)
 
 ---
 
-## Fitur Utama
+## 🎯 Fitur Utama
 
-### Area Publik (E-Catalog)
+### 🌐 Area Publik (E-Catalog)
 
-* **Homepage Interaktif:** Halaman beranda yang memukau dengan *hero section* modern, bagian fitur unggulan, narasi "Mengapa Memilih Kami", Call-to-Action, testimoni, dan blog terbaru, semuanya didesain secara visual.
-* **Katalog Produk (E-Catalog):** Menampilkan daftar produk mebel dalam format *grid* yang rapi.
-    * **Filter & Pencarian:** Filter produk berdasarkan kategori dan fitur pencarian yang responsif.
-    * **Desain Kartu Produk Premium:** Tampilan kartu produk yang estetis dengan efek *hover* yang halus.
-* **Halaman Detail Produk:** Menampilkan informasi lengkap produk, termasuk:
-    * **Fleksibilitas Harga:** Mendukung tampilan harga numerik atau teks kustom (misal: "Mulai dari RpX", "Harga menyesuaikan permintaan").
-    * **Detail Spesifikasi:** Informasi seperti Motif, Jenis Kayu, Dimensi, dan Finishing disajikan dalam tata letak yang terstruktur.
-    * **Tombol WhatsApp Dinamis:** Tombol "Pesan Sekarang" dan "Konsultasi via WhatsApp" yang langsung terhubung dengan nomor bisnis, disertai pesan otomatis berisi detail produk.
-    * **Produk Terkait:** Menampilkan rekomendasi produk serupa untuk mendorong eksplorasi lebih lanjut.
-* **Halaman Informasi:** "Tentang Kami" dan "Kontak Kami" dengan desain modern dan informasi yang jelas.
+#### Homepage Interaktif
+- **Hero Section Modern:** Halaman beranda yang memukau dengan desain visual yang menarik
+- **Fitur Unggulan:** Bagian yang menampilkan keunggulan produk dan layanan
+- **Narasi "Mengapa Memilih Kami":** Penjelasan value proposition yang jelas
+- **Call-to-Action:** Tombol-tombol yang mendorong interaksi pengguna
+- **Testimoni & Blog:** Bagian untuk membangun kepercayaan dan engagement
 
-### Area Admin (Sistem Manajemen Internal)
+#### Katalog Produk (E-Catalog)
+- **Grid Layout Rapi:** Menampilkan daftar produk mebel dalam format yang terorganisir
+- **Filter & Pencarian:** 
+  - Filter produk berdasarkan kategori
+  - Fitur pencarian yang responsif dan cepat
+- **Desain Kartu Produk Premium:** 
+  - Tampilan kartu produk yang estetis
+  - Efek hover yang halus dan menarik
 
-* **Sistem Autentikasi:** Fungsionalitas *Login* yang aman menggunakan Laravel Breeze (registrasi dinonaktifkan).
-* **Dashboard Interaktif:** Menyajikan ringkasan keuangan bulanan (pemasukan, pengeluaran, laba/rugi bersih) dalam *cards* informatif dan grafik batang (Chart.js) untuk visualisasi tren.
-* **Manajemen Kategori Produk (CRUD):** Memungkinkan admin untuk membuat, melihat, mengedit, dan menghapus kategori produk.
-* **Manajemen Produk Mebel (CRUD):**
-    * Mengelola detail produk lengkap, termasuk Motif, Harga Nominal/Catatan Harga, dan data lainnya.
-    * Fitur unggah dan manajemen gambar produk.
-* **Manajemen Transaksi Keuangan (CRUD):** Mencatat dan mengelola semua transaksi (kredit dan debit) dengan fitur filter dan pencarian.
-* **Laporan Keuangan:**
-    * Tampilan detail laporan keuangan yang dapat difilter.
-    * Fungsionalitas **Ekspor data ke Excel**.
-    * Fungsionalitas **Impor data dari Excel** (dengan validasi).
-* **UI/UX Modern & Minimalis:** Seluruh antarmuka admin didesain ulang dengan skema warna terang, navigasi sidebar responsif dengan ikon, dan elemen-elemen yang bersih.
+#### Halaman Detail Produk
+- **Fleksibilitas Harga:** 
+  - Mendukung tampilan harga numerik
+  - Teks kustom (misal: "Mulai dari RpX", "Harga menyesuaikan permintaan")
+- **Detail Spesifikasi Lengkap:**
+  - Motif produk
+  - Jenis Kayu
+  - Dimensi
+  - Finishing
+  - Disajikan dalam tata letak yang terstruktur
+- **Tombol WhatsApp Dinamis:**
+  - Tombol "Pesan Sekarang" dan "Konsultasi via WhatsApp"
+  - Terhubung langsung dengan nomor bisnis
+  - Pesan otomatis berisi detail produk
+- **Produk Terkait:** Rekomendasi produk serupa untuk mendorong eksplorasi
+
+#### Halaman Informasi
+- **Tentang Kami:** Informasi perusahaan dengan desain modern
+- **Kontak Kami:** Informasi kontak yang jelas dan mudah diakses
+
+### 🔐 Area Admin (Sistem Manajemen Internal)
+
+#### Sistem Autentikasi
+- **Login yang Aman:** Menggunakan Laravel Breeze
+- **Registrasi Dinonaktifkan:** Untuk keamanan sistem
+
+#### Dashboard Interaktif
+- **Ringkasan Keuangan Bulanan:**
+  - Pemasukan
+  - Pengeluaran
+  - Laba/rugi bersih
+- **Cards Informatif:** Tampilan data yang mudah dibaca
+- **Grafik Batang (Chart.js):** Visualisasi tren keuangan yang interaktif
+
+#### Manajemen Konten
+- **Manajemen Kategori Produk (CRUD):**
+  - Membuat kategori baru
+  - Melihat daftar kategori
+  - Mengedit kategori
+  - Menghapus kategori
+- **Manajemen Produk Mebel (CRUD):**
+  - Mengelola detail produk lengkap
+  - Motif, Harga Nominal/Catatan Harga
+  - Fitur unggah dan manajemen gambar produk
+
+#### Manajemen Keuangan
+- **Manajemen Transaksi (CRUD):**
+  - Mencatat transaksi kredit dan debit
+  - Fitur filter dan pencarian
+  - Riwayat transaksi yang lengkap
+- **Laporan Keuangan:**
+  - Tampilan detail yang dapat difilter
+  - **Ekspor data ke Excel**
+  - **Impor data dari Excel** (dengan validasi)
+
+#### UI/UX Modern & Minimalis
+- **Skema Warna Terang:** Desain yang clean dan profesional
+- **Navigasi Sidebar Responsif:** Dengan ikon yang intuitif
+- **Elemen-elemen Bersih:** Fokus pada fungsionalitas
 
 ---
 
-## Teknologi yang Digunakan
+## 🛠️ Teknologi yang Digunakan
 
-* **Backend:**
-    * [PHP 8.2+](https://www.php.net/)
-    * [Laravel 10.x](https://laravel.com/)
-    * [MySQL 8.x+](https://www.mysql.com/) sebagai Database
-    * [Composer](https://getcomposer.org/) (PHP Package Manager)
-    * [Maatwebsite/Laravel-Excel](https://docs.laravel-excel.com/) (Untuk Ekspor/Impor Excel)
-* **Frontend:**
-    * [HTML5](https://html.spec.whatwg.org/multipage/)
-    * [CSS3](https://www.w3.org/TR/css-2023/)
-    * [Tailwind CSS 3.x](https://tailwindcss.com/) (Utility-first CSS Framework)
-    * [JavaScript ES6+](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-    * [Alpine.js 3.x](https://alpinejs.dev/) (Minimalist JavaScript Framework)
-    * [Chart.js 3.x](https://www.chartjs.org/) (Untuk Visualisasi Data)
-    * [Vite](https://vitejs.dev/) (Frontend Build Tool, dikemas dalam Laravel `npm run dev/build`)
-* **Version Control:**
-    * [Git](https://git-scm.com/)
+### Backend
+- **[PHP 8.2+](https://www.php.net/)** - Bahasa pemrograman utama
+- **[Laravel 10.x](https://laravel.com/)** - Framework PHP
+- **[MySQL 8.x+](https://www.mysql.com/)** - Database
+- **[Composer](https://getcomposer.org/)** - PHP Package Manager
+- **[Maatwebsite/Laravel-Excel](https://docs.laravel-excel.com/)** - Ekspor/Impor Excel
 
----
+### Frontend
+- **[HTML5](https://html.spec.whatwg.org/multipage/)** - Markup
+- **[CSS3](https://www.w3.org/TR/css-2023/)** - Styling
+- **[Tailwind CSS 3.x](https://tailwindcss.com/)** - Utility-first CSS Framework
+- **[JavaScript ES6+](https://developer.mozilla.org/en-US/docs/Web/JavaScript)** - Interaktivitas
+- **[Alpine.js 3.x](https://alpinejs.dev/)** - Minimalist JavaScript Framework
+- **[Chart.js 3.x](https://www.chartjs.org/)** - Visualisasi Data
+- **[Vite](https://vitejs.dev/)** - Frontend Build Tool
 
-## Persyaratan Sistem
-
-Pastikan Anda memiliki hal-hal berikut terinstal di sistem Anda:
-
-* PHP 8.2 atau lebih tinggi.
-* MySQL 8.0 atau lebih tinggi.
-* Composer.
-* Node.js (LTS direkomendasikan) & npm (atau Yarn).
-* Git.
-* Web server (Apache, Nginx, atau menggunakan `php artisan serve` bawaan Laravel).
-* (Direkomendasikan: Laragon untuk Windows, atau Valet/Herd untuk macOS, atau XAMPP/LAMP/LEMP stack).
+### Version Control
+- **[Git](https://git-scm.com/)** - Version control system
 
 ---
 
-## Panduan Instalasi (Lokal)
+## ⚙️ Persyaratan Sistem
 
-Ikuti langkah-langkah ini untuk menjalankan proyek di lingkungan lokal Anda.
+### Software yang Diperlukan
+- **PHP 8.2** atau lebih tinggi
+- **MySQL 8.0** atau lebih tinggi
+- **Composer** - PHP package manager
+- **Node.js (LTS)** & **npm** (atau Yarn)
+- **Git** - Version control
 
-1.  **Clone Repositori:**
-    ```bash
-    git clone [https://github.com/your-username/furniture-website.git](https://github.com/your-username/furniture-website.git)
-    cd furniture-website
+### Web Server
+- **Apache, Nginx**, atau menggunakan `php artisan serve` bawaan Laravel
+- **Direkomendasikan:** 
+  - Laragon untuk Windows
+  - Valet/Herd untuk macOS
+  - XAMPP/LAMP/LEMP stack
+
+---
+
+## 🚀 Panduan Instalasi
+
+### 1. Clone Repositori
+```bash
+git clone https://github.com/your-username/furniture-website.git
+cd furniture-website
 ```
 
-2.  **Konfigurasi Environment:**
-    Buat file `.env` dari `.env.example` dan sesuaikan konfigurasi berikut:
-    
-    ```env
-    # Konfigurasi WhatsApp
-    WHATSAPP_NUMBER=6281234567890
-    
-    # Konfigurasi Kontak (Opsional)
-    CONTACT_EMAIL=info@furniture-website.com
-    CONTACT_PHONE=+62 812-3456-7890
-    CONTACT_ADDRESS_STREET=Jl. Contoh No. 123
-    CONTACT_ADDRESS_CITY=Jakarta
-    CONTACT_ADDRESS_POSTAL=12345
-    ```
-    
-    **Catatan:** Ganti `WHATSAPP_NUMBER` dengan nomor WhatsApp bisnis Anda (format: 6281234567890 tanpa tanda + atau spasi).
+### 2. Instal Dependensi PHP
+```bash
+composer install
+```
+
+### 3. Setup Environment
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+### 4. Konfigurasi Database
+1. Buat database baru di MySQL (misal: `furniture_db`)
+2. Edit file `.env` dan sesuaikan konfigurasi database:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=furniture_db
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 5. Jalankan Migrasi dan Seed
+```bash
+php artisan migrate:fresh --seed
+```
+
+### 6. Setup Storage
+```bash
+php artisan storage:link
+```
+
+### 7. Instal Dependensi Node.js
+```bash
+npm install
+```
+
+### 8. Kompilasi Aset Frontend
+
+#### Untuk Development
+```bash
+npm run dev
+```
+*(Biarkan perintah ini berjalan di terminal terpisah selama pengembangan)*
+
+#### Untuk Production
+```bash
+npm run build
+```
+
+### 9. Jalankan Aplikasi
+```bash
+php artisan serve
+```
+
+Aplikasi akan berjalan di `http://127.0.0.1:8000`
+
+---
+
+## 📱 Penggunaan Aplikasi
+
+### 🌐 Area Publik (E-Catalog)
+
+#### Akses Website
+- **Homepage:** `http://127.0.0.1:8000`
+- **Katalog:** Jelajahi produk dengan filter dan pencarian
+- **Detail Produk:** Lihat spesifikasi dan gunakan tombol WhatsApp
+
+#### Fitur Utama
+- **Pencarian Produk:** Cari berdasarkan nama atau kategori
+- **Filter Kategori:** Saring produk berdasarkan jenis
+- **Detail Lengkap:** Spesifikasi, harga, dan gambar produk
+- **WhatsApp Integration:** Hubungi langsung via WhatsApp
+
+### 🔐 Area Admin
+
+#### Login Admin
+- **URL:** `http://127.0.0.1:8000/login`
+- **Kredensial Default:**
+  - **Email:** `admin@example.com`
+  - **Password:** `password`
+
+#### Fitur Admin
+- **Dashboard:** Ringkasan keuangan dan grafik
+- **Manajemen Kategori:** CRUD kategori produk
+- **Manajemen Produk:** CRUD produk dengan gambar
+- **Manajemen Transaksi:** Pencatatan keuangan
+- **Laporan:** Ekspor/impor data Excel
+
+---
+
+## 🔧 Konfigurasi
 
 ### Konfigurasi WhatsApp
 
 Website ini dilengkapi dengan fitur WhatsApp yang terintegrasi:
 
-- **Tombol WhatsApp Otomatis:** Setiap halaman detail produk memiliki tombol "Minta Penawaran via WhatsApp" yang langsung mengarah ke WhatsApp dengan pesan yang sudah disiapkan
-- **Pesan Otomatis:** Pesan akan berisi nama produk yang sedang dilihat customer
-- **Animasi Menarik:** Tombol WhatsApp dilengkapi dengan animasi pulse dan efek hover yang menarik
-- **Konfigurasi Fleksibel:** Nomor WhatsApp dapat diubah melalui file `.env`
+#### Fitur WhatsApp
+- **Tombol WhatsApp Otomatis:** Setiap halaman detail produk
+- **Pesan Otomatis:** Berisi nama produk yang sedang dilihat
+- **Animasi Menarik:** Efek pulse dan hover
+- **Konfigurasi Fleksibel:** Dapat diubah via `.env`
 
-**Format Pesan Otomatis:**
+#### Format Pesan Otomatis
 ```
-Halo, saya tertarik dengan produk [Nama Produk]. Mohon informasi lebih lanjut tentang harga dan ketersediaan. Terima kasih!
+Halo, saya tertarik dengan produk [Nama Produk]. 
+Mohon informasi lebih lanjut tentang harga dan ketersediaan. 
+Terima kasih!
 ```
 
-**Cara Mengubah Nomor WhatsApp:**
+#### Cara Mengubah Nomor WhatsApp
 1. Edit file `.env`
-2. Ubah nilai `WHATSAPP_NUMBER=6281234567890` dengan nomor WhatsApp Anda
+2. Ubah nilai `WHATSAPP_NUMBER=6281234567890`
 3. Restart server Laravel jika diperlukan
-    *(Ganti `https://github.com/your-username/furniture-website.git` dengan URL repositori Git Anda.)*
 
-2.  **Instal Dependensi PHP:**
-    ```bash
-    composer install
-    ```
+### Konfigurasi Environment
 
-3.  **Buat File Environment (.env):**
-    ```bash
-    cp .env.example .env
-    ```
+Edit file `.env` dan sesuaikan konfigurasi berikut:
 
-4.  **Atur Kunci Aplikasi:**
-    ```bash
-    php artisan key:generate
-    ```
+```env
+# Konfigurasi WhatsApp
+WHATSAPP_NUMBER=6281234567890
 
-5.  **Konfigurasi Database:**
-    * Buat database baru di MySQL (misal: `furniture_db`).
-    * Buka file `.env` dan atur detail koneksi database Anda:
-        ```env
-        DB_CONNECTION=mysql
-        DB_HOST=127.0.0.1
-        DB_PORT=3306
-        DB_DATABASE=furniture_db
-        DB_USERNAME=root
-        DB_PASSWORD=
-        ```
-        *(Sesuaikan `DB_USERNAME` dan `DB_PASSWORD` sesuai konfigurasi lokal Anda.)*
+# Konfigurasi Kontak (Opsional)
+CONTACT_EMAIL=info@furniture-website.com
+CONTACT_PHONE=+62 812-3456-7890
+CONTACT_ADDRESS_STREET=Jl. Contoh No. 123
+CONTACT_ADDRESS_CITY=Jakarta
+CONTACT_ADDRESS_POSTAL=12345
+```
 
-6.  **Jalankan Migrasi Database dan Seed Data:**
-    ```bash
-    php artisan migrate:fresh --seed
-    ```
-    * `migrate:fresh` akan menghapus semua tabel dan menjalankan ulang semua migrasi.
-    * `--seed` akan menjalankan `DatabaseSeeder`, yang akan membuat akun admin awal.
-
-7.  **Buat Symlink untuk Storage:**
-    ```bash
-    php artisan storage:link
-    ```
-    * Ini diperlukan agar gambar yang diunggah dapat diakses dari browser.
-
-8.  **Instal Dependensi Node.js:**
-    ```bash
-    npm install
-    ```
-
-9.  **Kompilasi Aset Frontend:**
-    * Untuk pengembangan (development):
-        ```bash
-        npm run dev
-        ```
-        *(Biarkan perintah ini berjalan di satu terminal selama pengembangan.)*
-    * Untuk produksi (production build, setelah selesai develop):
-        ```bash
-        npm run build
-        ```
-
-10. **Jalankan Aplikasi:**
-    ```bash
-    php artisan serve
-    ```
-    * Aplikasi akan berjalan di `http://127.0.0.1:8000`.
+**Catatan:** Ganti `WHATSAPP_NUMBER` dengan nomor WhatsApp bisnis Anda (format: 6281234567890 tanpa tanda + atau spasi).
 
 ---
 
-## Penggunaan Aplikasi
+## 📁 Struktur Proyek
 
-### Area Publik (E-Catalog)
-
-* Akses homepage di `http://127.0.0.1:8000`.
-* Jelajahi produk di E-Catalog, gunakan filter dan pencarian.
-* Lihat detail produk, spesifikasi, dan gunakan tombol WhatsApp untuk inkuiri.
-
-### Area Admin
-
-* Akses halaman login admin di `http://127.0.0.1:8000/login`.
-* **Kredensial Login Default:**
-    * **Email:** `admin@example.com`
-    * **Password:** `password`
-    *(Ini dibuat oleh `db:seed`.)*
-* Setelah login, Anda akan masuk ke Dashboard Admin.
-* Gunakan sidebar navigasi untuk mengelola Kategori, Produk, Transaksi, dan Laporan Keuangan.
+```
+furniture-website/
+├── app/
+│   ├── Http/Controllers/     # Controller aplikasi
+│   ├── Models/              # Model database
+│   └── Helpers/             # Helper functions
+├── resources/views/         # Blade templates
+│   ├── admin/              # Views admin
+│   ├── public/             # Views publik
+│   └── components/         # Komponen reusable
+├── database/
+│   ├── migrations/         # Database migrations
+│   └── seeders/           # Database seeders
+├── routes/                 # Route definitions
+├── public/                 # Public assets
+└── storage/               # File uploads
+```
 
 ---
+
+## 📸 Galeri & Screenshot
+
+Lihat [galeri lengkap screenshot proyek ini](screenshots.md) untuk mendapatkan gambaran visual dari berbagai fitur.
+
+### Screenshot yang Tersedia
+- Homepage
+- Katalog Produk
+- Detail Produk
+- Halaman About
+- Halaman Contact
+- Dashboard Admin
+- Manajemen Produk
+- Laporan Keuangan
+
+---
+
+## 🔄 Pengembangan Selanjutnya
+
+### Fitur yang Direncanakan
+- [ ] Multi-language support
+- [ ] Advanced search filters
+- [ ] Product reviews & ratings
+- [ ] Shopping cart functionality
+- [ ] Payment gateway integration
+- [ ] Mobile app development
+- [ ] API for third-party integrations
+- [ ] Advanced analytics dashboard
+
+### Optimisasi yang Direncanakan
+- [ ] Performance optimization
+- [ ] SEO improvements
+- [ ] Security enhancements
+- [ ] Code refactoring
+- [ ] Test coverage improvement
+
+---
+
+## 📄 Lisensi
+
+Proyek ini dilisensikan di bawah [MIT License](LICENSE).
+
+---
+
+## 🤝 Kontribusi
+
+Kontribusi selalu diterima! Silakan buat pull request atau buka issue untuk melaporkan bug atau menyarankan fitur baru.
+
+## 📞 Support
+
+Jika Anda mengalami masalah atau memiliki pertanyaan, silakan buat issue di repository ini atau hubungi tim pengembangan.
+
+---
+
+**Dibuat dengan ❤️ menggunakan Laravel dan Tailwind CSS**
