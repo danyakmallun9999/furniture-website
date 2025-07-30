@@ -87,6 +87,42 @@
             transform: translateY(-8px);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
+
+        /* Active tab indicator animation */
+        .nav-link-active {
+            position: relative;
+        }
+
+        .nav-link-active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #059669, #10b981);
+            border-radius: 2px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: scaleX(0);
+                opacity: 0;
+            }
+            to {
+                transform: scaleX(1);
+                opacity: 1;
+            }
+        }
+
+        /* Mobile menu active state */
+        .mobile-menu-active {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border-left: 4px solid #059669;
+            padding-left: 1rem;
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
 
@@ -107,19 +143,19 @@
                     {{-- Desktop Navigation --}}
                     <div class="hidden md:flex items-center space-x-8">
                         <a href="{{ url('/') }}"
-                            class="text-sm font-medium text-gray-900 hover:text-emerald-600 transition-colors duration-200 {{ request()->is('/') ? 'text-emerald-600' : '' }}">
+                            class="text-sm font-medium transition-colors duration-200 {{ request()->is('/') ? 'text-emerald-600 nav-link-active' : 'text-gray-700 hover:text-emerald-600' }}">
                             Home
                         </a>
                         <a href="{{ route('catalog.index') }}"
-                            class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors duration-200 {{ request()->routeIs('catalog.*') ? 'text-emerald-600' : '' }}">
+                            class="text-sm font-medium transition-colors duration-200 {{ request()->routeIs('catalog.*') ? 'text-emerald-600 nav-link-active' : 'text-gray-700 hover:text-emerald-600' }}">
                             E-Catalog
                         </a>
                         <a href="{{ route('about.index') }}"
-                            class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors duration-200 {{ request()->routeIs('about.*') ? 'text-emerald-600' : '' }}">
+                            class="text-sm font-medium transition-colors duration-200 {{ request()->routeIs('about.*') ? 'text-emerald-600 nav-link-active' : 'text-gray-700 hover:text-emerald-600' }}">
                             About us
                         </a>
                         <a href="{{ route('contact.index') }}"
-                            class="text-sm font-medium text-gray-700 hover:text-emerald-600 transition-colors duration-200 {{ request()->routeIs('contact.*') ? 'text-emerald-600' : '' }}">
+                            class="text-sm font-medium transition-colors duration-200 {{ request()->routeIs('contact.*') ? 'text-emerald-600 nav-link-active' : 'text-gray-700 hover:text-emerald-600' }}">
                             Contact us
                         </a>
                     </div>
@@ -145,15 +181,21 @@
             <div class="mobile-menu hidden md:hidden bg-white border-t border-gray-100">
                 <div class="px-4 py-6 space-y-4">
                     <a href="{{ url('/') }}"
-                        class="block text-base font-medium text-gray-900 hover:text-emerald-600 transition-colors duration-200">Home</a>
+                        class="block text-base font-medium transition-colors duration-200 {{ request()->is('/') ? 'text-emerald-600 mobile-menu-active' : 'text-gray-700 hover:text-emerald-600' }}">
+                        Home
+                    </a>
                     <a href="{{ route('catalog.index') }}"
-                        class="block text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors duration-200">Catalog</a>
+                        class="block text-base font-medium transition-colors duration-200 {{ request()->routeIs('catalog.*') ? 'text-emerald-600 mobile-menu-active' : 'text-gray-700 hover:text-emerald-600' }}">
+                        Catalog
+                    </a>
                     <a href="{{ route('about.index') }}"
-                        class="block text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors duration-200">About
-                        us</a>
+                        class="block text-base font-medium transition-colors duration-200 {{ request()->routeIs('about.*') ? 'text-emerald-600 mobile-menu-active' : 'text-gray-700 hover:text-emerald-600' }}">
+                        About us
+                    </a>
                     <a href="{{ route('contact.index') }}"
-                        class="block text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors duration-200">Contact
-                        us</a>
+                        class="block text-base font-medium transition-colors duration-200 {{ request()->routeIs('contact.*') ? 'text-emerald-600 mobile-menu-active' : 'text-gray-700 hover:text-emerald-600' }}">
+                        Contact us
+                    </a>
                 </div>
             </div>
         </nav>
@@ -259,6 +301,23 @@
             } else {
                 nav.classList.remove('shadow-lg');
             }
+        });
+
+        // Add active state animation for navigation links
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('nav a[href]');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // Add a small delay to show the active state transition
+                    setTimeout(() => {
+                        const activeLinks = document.querySelectorAll('.nav-link-active, .mobile-menu-active');
+                        activeLinks.forEach(activeLink => {
+                            activeLink.style.transition = 'all 0.3s ease';
+                        });
+                    }, 100);
+                });
+            });
         });
     </script>
 </body>
