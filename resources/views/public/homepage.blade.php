@@ -25,7 +25,7 @@
                         Premium Quality Furniture
                     </div>
 
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-">
                         We help you make
                         <span class="gradient-text block">Modern Interior Design</span>
                     </h1>
@@ -38,16 +38,11 @@
                     <div class="flex flex-col sm:flex-row gap-4">
                         <a href="{{ route('catalog.index') }}"
                             class="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 shadow-lg">
-                            <span>Shop Now</span>
+                            <span>Lihat Katalog</span>
                             <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 8l4 4m0 0l-4 4m4-4H3" />
                             </svg>
-                        </a>
-
-                        <a href="{{ route('catalog.index') }}"
-                            class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-semibold rounded-xl border-2 border-gray-200 hover:border-emerald-500 hover:text-emerald-600 transition-all duration-300">
-                            <span>Explore</span>
                         </a>
                     </div>
                 </div>
@@ -59,11 +54,9 @@
                         <div class="space-y-4">
                             <div
                                 class="bg-orange-100 rounded-2xl p-6 transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                                <div class="w-full h-32 bg-orange-200 rounded-xl mb-4 flex items-center justify-center">
-                                    <svg class="w-16 h-16 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
-                                    </svg>
+                                <div class="w-full h-32 bg-orange-200 rounded-xl mb-4 overflow-hidden">
+                                    <img src="{{ asset('img/sofa.jpg') }}" alt="Modern Sofa" 
+                                         class="w-full h-full object-cover">
                                 </div>
                                 <h3 class="font-semibold text-gray-900 mb-1">Modern Sofa</h3>
                                 <p class="text-sm text-gray-600">Comfortable seating</p>
@@ -71,11 +64,9 @@
 
                             <div
                                 class="bg-blue-100 rounded-2xl p-6 transform -rotate-2 hover:rotate-0 transition-transform duration-300">
-                                <div class="w-full h-32 bg-blue-200 rounded-xl mb-4 flex items-center justify-center">
-                                    <svg class="w-16 h-16 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
-                                    </svg>
+                                <div class="w-full h-32 bg-blue-200 rounded-xl mb-4 overflow-hidden">
+                                    <img src="{{ asset('img/meja-makan.jpg') }}" alt="Dining Table" 
+                                         class="w-full h-full object-cover">
                                 </div>
                                 <h3 class="font-semibold text-gray-900 mb-1">Dining Table</h3>
                                 <p class="text-sm text-gray-600">Perfect for family</p>
@@ -85,11 +76,9 @@
                         <div class="space-y-4 pt-8">
                             <div
                                 class="bg-green-100 rounded-2xl p-6 transform rotate-1 hover:rotate-0 transition-transform duration-300">
-                                <div class="w-full h-32 bg-green-200 rounded-xl mb-4 flex items-center justify-center">
-                                    <svg class="w-16 h-16 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
-                                    </svg>
+                                <div class="w-full h-32 bg-green-200 rounded-xl mb-4 overflow-hidden">
+                                    <img src="{{ asset('img/kursi.jpg') }}" alt="Office Chair" 
+                                         class="w-full h-full object-cover">
                                 </div>
                                 <h3 class="font-semibold text-gray-900 mb-1">Office Chair</h3>
                                 <p class="text-sm text-gray-600">Ergonomic design</p>
@@ -97,11 +86,9 @@
 
                             <div
                                 class="bg-purple-100 rounded-2xl p-6 transform -rotate-1 hover:rotate-0 transition-transform duration-300">
-                                <div class="w-full h-32 bg-purple-200 rounded-xl mb-4 flex items-center justify-center">
-                                    <svg class="w-16 h-16 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
-                                    </svg>
+                                <div class="w-full h-32 bg-purple-200 rounded-xl mb-4 overflow-hidden">
+                                    <img src="{{ asset('img/kabinet.jpg') }}" alt="Cabinet" 
+                                         class="w-full h-full object-cover">
                                 </div>
                                 <h3 class="font-semibold text-gray-900 mb-1">Cabinet</h3>
                                 <p class="text-sm text-gray-600">Storage solution</p>
@@ -126,19 +113,18 @@
         </div>
     </section>
 
-    {{-- Features Section --}}
+    {{-- Keunggulan Section --}}
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Why Choose Us</h2>
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Keahlian & Kualitas</h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Donec rutrum congue leo eget malesuada. Nulla quis lorem ut libero malesuada feugiat lorem ipsum
-                    dolor.
+                    Setiap potong mebel yang kami hasilkan adalah bukti dari dedikasi dan keahlian tim pengrajin kami.
+                    Kami sangat memperhatikan detail, mulai dari pemilihan kayu terbaik, proses pengeringan yang tepat,
+                    hingga finishing yang sempurna.
                 </p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {{-- Feature 1 --}}
                 <div class="text-center group">
                     <div
                         class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -147,13 +133,9 @@
                                 d="M20 7l-8-4-8 4m16 0l-8 4-8-4m16 0v10l-8 4-8-4V7" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Fast & Free Shipping</h3>
-                    <p class="text-gray-600">
-                        Donec rutrum congue leo eget malesuada. Vestibulum ac diam sit amet quam vehicula.
-                    </p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Bahan Kayu Pilihan</h3>
+                    <p class="text-gray-600">Menggunakan kayu berkualitas dari sumber berkelanjutan.</p>
                 </div>
-
-                {{-- Feature 2 --}}
                 <div class="text-center group">
                     <div
                         class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -162,13 +144,9 @@
                                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Easy to Shop</h3>
-                    <p class="text-gray-600">
-                        Donec rutrum congue leo eget malesuada. Vestibulum ac diam sit amet quam vehicula.
-                    </p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Desain Inovatif</h3>
+                    <p class="text-gray-600">Menggabungkan tradisi dan inovasi dalam setiap produk.</p>
                 </div>
-
-                {{-- Feature 3 --}}
                 <div class="text-center group">
                     <div
                         class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -177,13 +155,9 @@
                                 d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">24/7 Support</h3>
-                    <p class="text-gray-600">
-                        Donec rutrum congue leo eget malesuada. Vestibulum ac diam sit amet quam vehicula.
-                    </p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Pengrajin Berpengalaman</h3>
+                    <p class="text-gray-600">Dibuat oleh tangan-tangan ahli dengan dedikasi tinggi.</p>
                 </div>
-
-                {{-- Feature 4 --}}
                 <div class="text-center group">
                     <div
                         class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -192,10 +166,8 @@
                                 d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Hassle Free Returns</h3>
-                    <p class="text-gray-600">
-                        Donec rutrum congue leo eget malesuada. Vestibulum ac diam sit amet quam vehicula.
-                    </p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Finishing Sempurna</h3>
+                    <p class="text-gray-600">Setiap detail diperhatikan untuk hasil terbaik.</p>
                 </div>
             </div>
         </div>
