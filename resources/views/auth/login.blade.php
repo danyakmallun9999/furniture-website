@@ -1,47 +1,138 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+{{-- resources/views/auth/login-pure-tailwind.blade.php --}}
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }} - Login</title>
+
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        /* Pastikan animasi ini ada di app.css Anda, jika tidak, bisa diletakkan di sini sementara */
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fade-in-up 0.6s ease-out forwards;
+        }
+
+        .gradient-text {
+            background-image: linear-gradient(to right, #059669, #10B981);
+            /* emerald-600 to emerald-500 */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased">
+    <div class="relative min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        {{-- Background Pattern (dari homepage) --}}
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute inset-0"
+                style="background-image: radial-gradient(circle at 25px 25px, #10b981 2px, transparent 0), radial-gradient(circle at 75px 75px, #059669 2px, transparent 0); background-size: 100px 100px;">
+            </div>
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <div
+            class="relative z-10 w-full max-w-4xl flex flex-col md:flex-row bg-white rounded-2xl border border-gray-200 overflow-hidden animate-fade-in-up">
+            {{-- Left Side: Image --}}
+            <div class="hidden md:block md:w-1/2 bg-gray-100 flex-shrink-0">
+                <img src="{{ asset('img/login-furniture.jpg') }}" alt="Desain Interior Modern"
+                    class="w-full h-full object-cover">
+            </div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+            {{-- Right Side: Login Form --}}
+            <div class="w-full md:w-1/2 p-10 space-y-8 flex flex-col justify-center">
+                <div class="text-center">
+                    <a href="{{ route('homepage') }}" class="inline-block mb-6">
+                        <h1 class="text-4xl font-bold gradient-text">Ajining Furniture</h1>
+                    </a>
+                    <h2 class="mt-6 text-3xl font-bold text-gray-900">
+                        Masuk ke Akun Anda
+                    </h2>
+                    <p class="mt-2 text-base text-gray-600">
+                        Selamat datang kembali! Silakan masuk untuk melanjutkan.
+                    </p>
+                </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                @if (session('status'))
+                    <div class="mb-4 text-center text-sm font-medium text-emerald-700 bg-emerald-50 p-3 rounded-md">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ route('login') }}" class="space-y-6">
+                    @csrf
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Alamat Email</label>
+                        <input id="email"
+                            class="block w-full px-4 py-2 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
+                            type="email" name="email" value="{{ old('email') }}" required autofocus
+                            autocomplete="username" placeholder="Masukkan alamat email Anda">
+                        @error('email')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Kata Sandi</label>
+                        <input id="password"
+                            class="block w-full px-4 py-2 border border-gray-300 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
+                            type="password" name="password" required autocomplete="current-password"
+                            placeholder="Masukkan kata sandi Anda">
+                        @error('password')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <label for="remember_me" class="inline-flex items-center">
+                            <input id="remember_me" type="checkbox"
+                                class="h-4 w-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500"
+                                name="remember">
+                            <span class="ml-2 text-sm text-gray-600">Ingat Saya</span>
+                        </label>
+
+                        @if (Route::has('password.request'))
+                            <a class="font-medium text-sm text-emerald-600 hover:text-emerald-500 hover:underline transition-colors duration-200"
+                                href="{{ route('password.request') }}">
+                                Lupa Kata Sandi?
+                            </a>
+                        @endif
+                    </div>
+
+                    <div>
+                        <button type="submit"
+                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl text-lg font-semibold text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all duration-300 transform hover:scale-105">
+                            Masuk
+                        </button>
+                    </div>
+                </form>
+
+            </div>
         </div>
+    </div>
+</body>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+</html>

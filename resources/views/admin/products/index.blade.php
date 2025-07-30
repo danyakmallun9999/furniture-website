@@ -36,6 +36,8 @@
                                 <th class="py-3 px-6 text-left">Kategori</th>
                                 <th class="py-3 px-6 text-left">Jenis Kayu</th>
                                 <th class="py-3 px-6 text-left">Dimensi</th>
+                                <th class="py-3 px-6 text-right">Harga</th> {{-- Kolom baru --}}
+                                <th class="py-3 px-6 text-center">Custom</th> {{-- Kolom baru --}}
                                 <th class="py-3 px-6 text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -57,6 +59,20 @@
                                     <td class="py-3 px-6 text-left">{{ $product->category->name ?? 'N/A' }}</td>
                                     <td class="py-3 px-6 text-left">{{ $product->wood_type ?? '-' }}</td>
                                     <td class="py-3 px-6 text-left">{{ $product->dimensions ?? '-' }}</td>
+                                    <td class="py-3 px-6 text-right">
+                                        @if ($product->price)
+                                            {{ 'Rp' . number_format($product->price, 0, ',', '.') }} {{-- Format harga --}}
+                                        @else
+                                            Harga Custom {{-- Teks jika harga kosong --}}
+                                        @endif
+                                    </td> {{-- Kolom baru --}}
+                                    <td class="py-3 px-6 text-center">
+                                        @if ($product->is_customizable)
+                                            <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">Ya</span>
+                                        @else
+                                            <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">Tidak</span>
+                                        @endif
+                                    </td> {{-- Kolom baru --}}
                                     <td class="py-3 px-6 text-center">
                                         <div class="flex item-center justify-center">
                                             <a href="{{ route('products.edit', $product->id) }}"
@@ -88,7 +104,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="py-3 px-6 text-center">Tidak ada produk yang tersedia.
+                                    <td colspan="8" class="py-3 px-6 text-center">Tidak ada produk yang tersedia.
                                     </td>
                                 </tr>
                             @endforelse

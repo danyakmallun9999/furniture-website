@@ -38,8 +38,48 @@
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
 
+                    {{-- Kolom-kolom baru dimulai di sini --}}
                     <div class="mb-4">
-                        <x-input-label for="description" :value="__('Deskripsi (Opsional)')" />
+                        <x-input-label for="product_type" :value="__('Jenis Produk (Opsional)')" />
+                        <x-text-input id="product_type" class="block mt-1 w-full" type="text" name="product_type"
+                            :value="old('product_type', $product->product_type)" placeholder="misal: Gebyok Ukiran Jepara" />
+                        <x-input-error :messages="$errors->get('product_type')" class="mt-2" />
+                    </div>
+
+                    <div class="mb-4">
+                        <x-input-label for="motif" :value="__('Motif (Opsional)')" />
+                        <x-text-input id="motif" class="block mt-1 w-full" type="text" name="motif"
+                            :value="old('motif', $product->motif)" placeholder="misal: Ukiran Klasik Jawa - Flora dan Sulur" />
+                        <x-input-error :messages="$errors->get('motif')" class="mt-2" />
+                    </div>
+
+                    <div class="mb-4">
+                        <x-input-label for="price" :value="__('Harga (Opsional, tanpa titik/koma)')" />
+                        <x-text-input id="price" class="block mt-1 w-full" type="number" name="price"
+                            :value="old('price', $product->price)" placeholder="misal: 30000000 untuk Rp30.000.000" min="0" />
+                        <x-input-error :messages="$errors->get('price')" class="mt-2" />
+                    </div>
+
+                    <div class="mb-4">
+                        <x-input-label for="short_description" :value="__('Deskripsi Singkat (Opsional)')" />
+                        <x-textarea id="short_description" class="block mt-1 w-full"
+                            name="short_description">{{ old('short_description', $product->short_description) }}</x-textarea>
+                        <x-input-error :messages="$errors->get('short_description')" class="mt-2" />
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="is_customizable" class="flex items-center">
+                            <input type="checkbox" id="is_customizable" name="is_customizable" value="1"
+                                {{ old('is_customizable', $product->is_customizable) ? 'checked' : '' }}
+                                class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800">
+                            <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Produk dapat dikustomisasi (harga bisa berubah)') }}</span>
+                        </label>
+                        <x-input-error :messages="$errors->get('is_customizable')" class="mt-2" />
+                    </div>
+                    {{-- Kolom-kolom baru berakhir di sini --}}
+
+                    <div class="mb-4">
+                        <x-input-label for="description" :value="__('Deskripsi Lengkap (Opsional)')" />
                         <x-textarea id="description" class="block mt-1 w-full"
                             name="description">{{ old('description', $product->description) }}</x-textarea>
                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
