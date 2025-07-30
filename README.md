@@ -1,6 +1,6 @@
 # Website E-Catalog Mebel Kayu Modern
 
-![Homepage Screenshot](public/images/readme_homepage.png)
+![Homepage Website Mebel Kayu](public/img/readme_homepage.png)
 
 Website E-Catalog Mebel Kayu Modern adalah platform digital yang dirancang untuk industri mebel kayu, menampilkan produk-produk berkualitas tinggi dalam format katalog interaktif dan menyediakan sistem manajemen internal yang efisien. Proyek ini memadukan estetika desain yang modern dan minimalis dengan fungsionalitas yang kuat untuk mendukung operasional bisnis mebel.
 
