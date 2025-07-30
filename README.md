@@ -98,7 +98,43 @@ Ikuti langkah-langkah ini untuk menjalankan proyek di lingkungan lokal Anda.
     ```bash
     git clone [https://github.com/your-username/furniture-website.git](https://github.com/your-username/furniture-website.git)
     cd furniture-website
+```
+
+2.  **Konfigurasi Environment:**
+    Buat file `.env` dari `.env.example` dan sesuaikan konfigurasi berikut:
+    
+    ```env
+    # Konfigurasi WhatsApp
+    WHATSAPP_NUMBER=6281234567890
+    
+    # Konfigurasi Kontak (Opsional)
+    CONTACT_EMAIL=info@furniture-website.com
+    CONTACT_PHONE=+62 812-3456-7890
+    CONTACT_ADDRESS_STREET=Jl. Contoh No. 123
+    CONTACT_ADDRESS_CITY=Jakarta
+    CONTACT_ADDRESS_POSTAL=12345
     ```
+    
+    **Catatan:** Ganti `WHATSAPP_NUMBER` dengan nomor WhatsApp bisnis Anda (format: 6281234567890 tanpa tanda + atau spasi).
+
+### Konfigurasi WhatsApp
+
+Website ini dilengkapi dengan fitur WhatsApp yang terintegrasi:
+
+- **Tombol WhatsApp Otomatis:** Setiap halaman detail produk memiliki tombol "Minta Penawaran via WhatsApp" yang langsung mengarah ke WhatsApp dengan pesan yang sudah disiapkan
+- **Pesan Otomatis:** Pesan akan berisi nama produk yang sedang dilihat customer
+- **Animasi Menarik:** Tombol WhatsApp dilengkapi dengan animasi pulse dan efek hover yang menarik
+- **Konfigurasi Fleksibel:** Nomor WhatsApp dapat diubah melalui file `.env`
+
+**Format Pesan Otomatis:**
+```
+Halo, saya tertarik dengan produk [Nama Produk]. Mohon informasi lebih lanjut tentang harga dan ketersediaan. Terima kasih!
+```
+
+**Cara Mengubah Nomor WhatsApp:**
+1. Edit file `.env`
+2. Ubah nilai `WHATSAPP_NUMBER=6281234567890` dengan nomor WhatsApp Anda
+3. Restart server Laravel jika diperlukan
     *(Ganti `https://github.com/your-username/furniture-website.git` dengan URL repositori Git Anda.)*
 
 2.  **Instal Dependensi PHP:**

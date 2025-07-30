@@ -37,7 +37,7 @@ class PublicController extends Controller
                              ->orWhere('wood_type', 'like', '%' . $search . '%');
             })
             ->latest()
-            ->paginate(12); // Tampilkan 12 produk per halaman
+            ->paginate(9); // Tampilkan 9 produk per halaman
 
         $categories = Category::all(); // Untuk filter kategori di katalog
 

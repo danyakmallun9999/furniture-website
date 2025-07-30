@@ -147,7 +147,7 @@
                     <a href="{{ url('/') }}"
                         class="block text-base font-medium text-gray-900 hover:text-emerald-600 transition-colors duration-200">Home</a>
                     <a href="{{ route('catalog.index') }}"
-                        class="block text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors duration-200">Services</a>
+                        class="block text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors duration-200">Catalog</a>
                     <a href="{{ route('about.index') }}"
                         class="block text-base font-medium text-gray-700 hover:text-emerald-600 transition-colors duration-200">About
                         us</a>
@@ -201,8 +201,8 @@
                     <div>
                         <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Contact Info</h3>
                         <ul class="space-y-2 text-sm text-gray-400">
-                            <li>Jl. Furniture Street No. 123</li>
-                            <li>Jakarta, Indonesia</li>
+                            <li>Jl. Kudus - Jepara</li>
+                            <li>Tahunan, Jepara</li>
                             <li class="mt-2">
                                 <a href="tel:+6281234567890" class="hover:text-white transition-colors duration-200">
                                     +62 812-3456-7890
@@ -210,7 +210,7 @@
                             </li>
                             <li>
                                 <a href="mailto:info@furni.com" class="hover:text-white transition-colors duration-200">
-                                    info@furni.com
+                                    ajiningfurniture@gmail.com
                                 </a>
                             </li>
                         </ul>
