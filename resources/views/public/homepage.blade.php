@@ -3,7 +3,7 @@
 <x-guest-layout>
     {{-- Hero Section - Modern Design --}}
     <section
-        class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-teal-50">
+        class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-teal-50 pt-24 sm:pt-0">
         {{-- Background Pattern --}}
         <div class="absolute inset-0 opacity-5">
             <div class="absolute inset-0"
@@ -19,20 +19,20 @@
                         class="inline-flex items-center px-4 py-2 bg-emerald-100 text-emerald-800 text-sm font-medium rounded-full mb-6">
                         <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                 clip-rule="evenodd" />
                         </svg>
-                        Furnitur Kualitas Premium
+                        Kualitas Mebel Premium
                     </div>
 
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-">
-                        Kami membantu Anda mewujudkan
+                        Kami bantu Anda wujudkan
                         <span class="gradient-text block">Desain Interior Modern</span>
                     </h1>
 
                     <p class="text-lg text-gray-600 mb-8 max-w-lg leading-relaxed">
-                        Kami menyediakan berbagai pilihan furnitur berkualitas tinggi yang dirancang untuk mempercantik
-                        setiap sudut rumah Anda dengan sentuhan modern dan fungsionalitas terbaik.
+                        Donec rutrum congue leo eget malesuada. Vestibulum ac diam sit amet quam vehicula elementum sed
+                        sit amet dui. Cras ultricies ligula sed magna dictum porta.
                     </p>
 
                     <div class="flex flex-col sm:flex-row gap-4">
@@ -55,21 +55,21 @@
                             <div
                                 class="bg-orange-100 rounded-2xl p-6 transform rotate-3 hover:rotate-0 transition-transform duration-300">
                                 <div class="w-full h-32 bg-orange-200 rounded-xl mb-4 overflow-hidden">
-                                    <img src="{{ asset('img/sofa.jpg') }}" alt="Sofa Modern" 
+                                    <img src="{{ asset('img/sofa.jpg') }}" alt="Sofa Modern"
                                          class="w-full h-full object-cover">
                                 </div>
                                 <h3 class="font-semibold text-gray-900 mb-1">Sofa Modern</h3>
-                                <p class="text-sm text-gray-600">Tempat duduk yang nyaman dan bergaya</p>
+                                <p class="text-sm text-gray-600">Tempat duduk nyaman</p>
                             </div>
 
                             <div
                                 class="bg-blue-100 rounded-2xl p-6 transform -rotate-2 hover:rotate-0 transition-transform duration-300">
                                 <div class="w-full h-32 bg-blue-200 rounded-xl mb-4 overflow-hidden">
-                                    <img src="{{ asset('img/meja-makan.jpg') }}" alt="Meja Makan" 
+                                    <img src="{{ asset('img/meja-makan.jpg') }}" alt="Meja Makan"
                                          class="w-full h-full object-cover">
                                 </div>
                                 <h3 class="font-semibold text-gray-900 mb-1">Meja Makan</h3>
-                                <p class="text-sm text-gray-600">Sempurna untuk kumpul keluarga</p>
+                                <p class="text-sm text-gray-600">Sempurna untuk keluarga</p>
                             </div>
                         </div>
 
@@ -77,21 +77,21 @@
                             <div
                                 class="bg-green-100 rounded-2xl p-6 transform rotate-1 hover:rotate-0 transition-transform duration-300">
                                 <div class="w-full h-32 bg-green-200 rounded-xl mb-4 overflow-hidden">
-                                    <img src="{{ asset('img/kursi.jpg') }}" alt="Kursi Kantor" 
+                                    <img src="{{ asset('img/kursi.jpg') }}" alt="Kursi Kantor"
                                          class="w-full h-full object-cover">
                                 </div>
                                 <h3 class="font-semibold text-gray-900 mb-1">Kursi Kantor</h3>
-                                <p class="text-sm text-gray-600">Desain ergonomis untuk produktivitas</p>
+                                <p class="text-sm text-gray-600">Desain ergonomis</p>
                             </div>
 
                             <div
                                 class="bg-purple-100 rounded-2xl p-6 transform -rotate-1 hover:rotate-0 transition-transform duration-300">
                                 <div class="w-full h-32 bg-purple-200 rounded-xl mb-4 overflow-hidden">
-                                    <img src="{{ asset('img/kabinet.jpg') }}" alt="Kabinet Penyimpanan" 
+                                    <img src="{{ asset('img/kabinet.jpg') }}" alt="Kabinet"
                                          class="w-full h-full object-cover">
                                 </div>
-                                <h3 class="font-semibold text-gray-900 mb-1">Kabinet Penyimpanan</h3>
-                                <p class="text-sm text-gray-600">Solusi penyimpanan yang elegan</p>
+                                <h3 class="font-semibold text-gray-900 mb-1">Kabinet</h3>
+                                <p class="text-sm text-gray-600">Solusi penyimpanan</p>
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Keahlian & Kualitas Kami</h2>
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Keahlian & Kualitas</h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">
                     Setiap potong mebel yang kami hasilkan adalah bukti dari dedikasi dan keahlian tim pengrajin kami.
                     Kami sangat memperhatikan detail, mulai dari pemilihan kayu terbaik, proses pengeringan yang tepat,
@@ -134,7 +134,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-3">Bahan Kayu Pilihan</h3>
-                    <p class="text-gray-600">Menggunakan kayu berkualitas premium dari sumber berkelanjutan.</p>
+                    <p class="text-gray-600">Menggunakan kayu berkualitas dari sumber berkelanjutan.</p>
                 </div>
                 <div class="text-center group">
                     <div
@@ -145,7 +145,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-3">Desain Inovatif</h3>
-                    <p class="text-gray-600">Menggabungkan tradisi dan inovasi dalam setiap desain produk kami.</p>
+                    <p class="text-gray-600">Menggabungkan tradisi dan inovasi dalam setiap produk.</p>
                 </div>
                 <div class="text-center group">
                     <div
@@ -156,7 +156,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-3">Pengrajin Berpengalaman</h3>
-                    <p class="text-gray-600">Dibuat oleh tangan-tangan ahli dengan dedikasi dan presisi tinggi.</p>
+                    <p class="text-gray-600">Dibuat oleh tangan-tangan ahli dengan dedikasi tinggi.</p>
                 </div>
                 <div class="text-center group">
                     <div
@@ -167,7 +167,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-3">Finishing Sempurna</h3>
-                    <p class="text-gray-600">Setiap detail diperhatikan secara cermat untuk hasil terbaik.</p>
+                    <p class="text-gray-600">Setiap detail diperhatikan untuk hasil terbaik.</p>
                 </div>
             </div>
         </div>
@@ -177,10 +177,10 @@
     <section class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Dibuat dengan Material Unggul.</h2>
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Dibuat dengan bahan terbaik.</h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Temukan koleksi furnitur terbaru kami, dirancang dengan material pilihan dan perhatian detail untuk
-                    memperkaya ruang Anda.
+                    Donec rutrum congue leo eget malesuada. Vestibulum ac diam sit amet quam vehicula elementum sed sit
+                    amet dui.
                 </p>
             </div>
 
@@ -194,7 +194,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">Belum Ada Produk</h3>
-                    <p class="text-gray-600">Saat ini belum ada produk terbaru yang ditambahkan. Silakan cek kembali nanti!</p>
+                    <p class="text-gray-600">Belum ada produk terbaru yang ditambahkan.</p>
                 </div>
             @else
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -222,16 +222,8 @@
                                     <div class="flex items-center justify-between mb-2">
                                         <span
                                             class="text-sm font-medium text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
-                                            {{ $product->category->name ?? 'Furnitur' }}
+                                            {{ $product->category->name ?? 'Furniture' }}
                                         </span>
-                                        <button
-                                            class="p-2 text-gray-400 hover:text-red-500 transition-colors duration-200">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                            </svg>
-                                        </button>
                                     </div>
 
                                     <h3
@@ -240,23 +232,13 @@
                                     </h3>
 
                                     <p class="text-gray-600 text-sm mb-4 line-clamp-2">
-                                        {{ $product->description ?? 'Furnitur indah ini dibuat dengan perhatian pada detail dan material berkualitas tinggi.' }}
+                                        {{ $product->description ?? 'Potongan furnitur indah yang dibuat dengan perhatian terhadap detail dan bahan berkualitas.' }}
                                     </p>
 
                                     <div class="flex items-center justify-between">
-                                        <div class="flex items-center space-x-1">
-                                            @for ($i = 0; $i < 5; $i++)
-                                                <svg class="w-4 h-4 text-yellow-400" fill="currentColor"
-                                                    viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                </svg>
-                                            @endfor
-                                            <span class="text-sm text-gray-500 ml-2">(4.5)</span>
-                                        </div>
-
                                         <span class="text-lg font-bold text-gray-900">Rp
-                                            {{ number_format(rand(500000, 2000000), 0, ',', '.') }}</span>
+                                            {{ number_format($product->price, 0, ',', '.') }}
+                                        </span>
                                     </div>
                                 </div>
                             </a>
@@ -267,7 +249,7 @@
                 <div class="text-center mt-12">
                     <a href="{{ route('catalog.index') }}"
                         class="inline-flex items-center px-8 py-4 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 shadow-lg">
-                        <span>Jelajahi Semua Produk</span>
+                        <span>Jelajahi</span>
                         <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -282,9 +264,9 @@
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Apa Kata Pelanggan Kami?</h2>
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Testimoni</h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Dengar langsung pengalaman dan kepuasan pelanggan kami terhadap produk dan layanan terbaik.
+                    Apa kata pelanggan kami tentang produk dan layanan kami.
                 </p>
             </div>
 
@@ -300,13 +282,15 @@
                         @endfor
                     </div>
                     <p class="text-gray-700 mb-6 italic">
-                        "Produk furnitur dari sini benar-benar mengubah suasana rumah saya menjadi lebih modern dan nyaman. Kualitasnya sangat baik dan tahan lama. Saya sangat merekomendasikannya!"
+                        "Donec rutrum congue leo eget malesuada. Vestibulum rutrum quam vitae fringilla ultricies.
+                        Mauris auctor elit at imperdiet imperdiet, lorem ipsum consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore."
                     </p>
                     <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div> {{-- Anda bisa mengganti ini dengan gambar profil pelanggan --}}
+                        <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
                         <div>
                             <h4 class="font-semibold text-gray-900">Michelle Anna</h4>
-                            <p class="text-sm text-gray-600">Pemilik Rumah</p>
+                            <p class="text-sm text-gray-600">CEO, Company Inc</p>
                         </div>
                     </div>
                     <div class="absolute top-6 right-6">
@@ -330,13 +314,14 @@
                         @endfor
                     </div>
                     <p class="text-gray-700 mb-6 italic">
-                        "Saya sangat terkesan dengan pilihan desain yang unik dan modern. Setiap produk menunjukkan sentuhan seni dan fungsionalitas. Pelayanan pelanggan juga luar biasa!"
+                        "Vestibulum rutrum quam vitae fringilla ultricies. Mauris auctor elit at imperdiet imperdiet.
+                        Donec rutrum congue leo eget malesuada. Vestibulum ac diam sit amet quam vehicula elementum."
                     </p>
                     <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div> {{-- Anda bisa mengganti ini dengan gambar profil pelanggan --}}
+                        <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
                         <div>
                             <h4 class="font-semibold text-gray-900">Robert Johnson</h4>
-                            <p class="text-sm text-gray-600">Desainer Interior</p>
+                            <p class="text-sm text-gray-600">Designer</p>
                         </div>
                     </div>
                     <div class="absolute top-6 right-6">
@@ -360,13 +345,14 @@
                         @endfor
                     </div>
                     <p class="text-gray-700 mb-6 italic">
-                        "Dari proses pemesanan hingga pengiriman, semuanya berjalan lancar. Furniturnya tiba dengan aman dan persis seperti yang saya harapkan. Benar-benar profesional!"
+                        "Mauris auctor elit at imperdiet imperdiet, lorem ipsum dolor sit amet consectetur adipiscing
+                        elit. Donec rutrum congue leo eget malesuada. Vestibulum rutrum quam vitae fringilla."
                     </p>
                     <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div> {{-- Anda bisa mengganti ini dengan gambar profil pelanggan --}}
+                        <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
                         <div>
                             <h4 class="font-semibold text-gray-900">Sarah Wilson</h4>
-                            <p class="text-sm text-gray-600">Arsitek</p>
+                            <p class="text-sm text-gray-600">Pemilik Rumah</p>
                         </div>
                     </div>
                     <div class="absolute top-6 right-6">
@@ -387,15 +373,15 @@
     <section class="py-20 bg-gradient-to-r from-emerald-600 to-teal-600">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
-                Siap Memperindah Rumah Anda?
+                Siap Mengubah Rumah Anda?
             </h2>
             <p class="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
-                Jelajahi koleksi furnitur premium kami yang luas dan temukan potongan sempurna untuk rumah impian Anda.
+                Jelajahi koleksi furnitur premium kami yang luas dan temukan perabot yang sempurna untuk rumah impian Anda.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="{{ route('catalog.index') }}"
                     class="inline-flex items-center justify-center px-8 py-4 bg-white text-emerald-600 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-300 transform hover:scale-105 shadow-lg">
-                    <span>Lihat Katalog</span>
+                    <span>Jelajahi Katalog</span>
                     <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M17 8l4 4m0 0l-4 4m4-4H3" />
