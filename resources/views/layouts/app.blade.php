@@ -10,12 +10,15 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    {{-- Favicon --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"> {{-- Pastikan Anda memiliki favicon.ico di public/ --}}
+
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('styles') {{-- Jika ada custom style yang akan di push --}}
 </head>
-
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -29,7 +32,7 @@
             </header>
         @endif
 
-        <div class="flex"> {{-- Ini div baru untuk layout flex (sidebar + konten) --}}
+        <div class="flex"> {{-- Ini div untuk layout flex (sidebar + konten) --}}
 
             {{-- Sidebar --}}
             <div class="w-64 bg-gray-800 dark:bg-gray-900 text-white p-4 min-h-screen">
@@ -42,23 +45,29 @@
                             </x-nav-link>
                         </li>
                         <li class="mb-2">
-                            <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')"> {{-- INI BARIS BARU --}}
+                            <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
                                 {{ __('Kategori Produk') }}
                             </x-nav-link>
                         </li>
                         <li class="mb-2">
-                            <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')"> {{-- Nanti kita buat route ini --}}
-                                {{ __('Produk') }}
+                            <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">
+                                {{ __('Produk Mebel') }} {{-- Sesuaikan teks agar konsisten --}}
                             </x-nav-link>
                         </li>
                         <li class="mb-2">
-                            <x-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.*')"> {{-- Nanti kita buat route ini --}}
+                            <x-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.*')">
                                 {{ __('Transaksi') }}
                             </x-nav-link>
                         </li>
                         <li class="mb-2">
-                            <x-nav-link :href="route('reports.financial')" :active="request()->routeIs('reports.financial')"> {{-- Nanti kita buat route ini --}}
+                            <x-nav-link :href="route('reports.financial')" :active="request()->routeIs('reports.financial')">
                                 {{ __('Laporan Keuangan') }}
+                            </x-nav-link>
+                        </li>
+                        {{-- Tambahkan menu Invoice di sini --}}
+                        <li class="mb-2">
+                            <x-nav-link :href="route('invoices.index')" :active="request()->routeIs('invoices.*')">
+                                {{ __('Manajemen Invoice') }}
                             </x-nav-link>
                         </li>
                         {{-- Tambahkan menu lain di sini --}}
