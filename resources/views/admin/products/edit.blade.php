@@ -2,220 +2,418 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Edit Produk Mebel') }} - {{ $product->name }}
-        </h2>
+        <div class="flex items-center justify-between w-full">
+            <div class="flex items-center space-x-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white leading-tight">
+                        Edit Produk Mebel - {{ $product->name }}
+                    </h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                        Perbarui informasi produk yang ada
+                    </p>
+                </div>
+            </div>
+        </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+    <div class="py-8">
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+            {{-- Main Content Card --}}
+            <div class="group relative">
+                <div class="absolute inset-0 bg-slate-100 dark:bg-slate-800 rounded-2xl opacity-75 group-hover:opacity-100 blur-sm group-hover:blur-none transition-all duration-300"></div>
+                <div class="relative bg-white dark:bg-slate-900 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700">
+                    <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
 
-                <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-
-                    <div class="mb-4">
-                        <x-input-label for="category_id" :value="__('Kategori Produk')" />
-                        <select id="category_id" name="category_id"
-                            class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
-                            required>
-                            <option value="">Pilih Kategori</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}"
-                                    {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
-                    </div>
-
-                    <div class="mb-4">
-                        <x-input-label for="name" :value="__('Nama Produk')" />
-                        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
-                            :value="old('name', $product->name)" required autofocus />
-                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                    </div>
-
-                    <div class="mb-4">
-                        <x-input-label for="product_type" :value="__('Jenis Produk (Opsional)')" />
-                        <x-text-input id="product_type" class="block mt-1 w-full" type="text" name="product_type"
-                            :value="old('product_type', $product->product_type)" placeholder="misal: Gebyok Ukiran Jepara" />
-                        <x-input-error :messages="$errors->get('product_type')" class="mt-2" />
-                    </div>
-
-                    <div class="mb-4">
-                        <x-input-label for="motif" :value="__('Motif (Opsional)')" />
-                        <x-text-input id="motif" class="block mt-1 w-full" type="text" name="motif"
-                            :value="old('motif', $product->motif)" placeholder="misal: Ukiran Klasik Jawa - Flora dan Sulur" />
-                        <x-input-error :messages="$errors->get('motif')" class="mt-2" />
-                    </div>
-
-                    <div class="mb-4">
-                        <x-input-label for="price" :value="__('Harga (Opsional, tanpa titik/koma)')" />
-                        <x-text-input id="price" class="block mt-1 w-full" type="number" name="price"
-                            :value="old('price', $product->price)" placeholder="misal: 30000000 untuk Rp30.000.000" min="0" />
-                        <x-input-error :messages="$errors->get('price')" class="mt-2" />
-                    </div>
-
-                    <div class="mb-4">
-                        <x-input-label for="short_description" :value="__('Deskripsi Singkat (Opsional)')" />
-                        <x-textarea id="short_description" class="block mt-1 w-full"
-                            name="short_description">{{ old('short_description', $product->short_description) }}</x-textarea>
-                        <x-input-error :messages="$errors->get('short_description')" class="mt-2" />
-                    </div>
-
-                    <div class="mb-6">
-                        <label for="is_customizable" class="flex items-center">
-                            <input type="checkbox" id="is_customizable" name="is_customizable" value="1"
-                                {{ old('is_customizable', $product->is_customizable) ? 'checked' : '' }}
-                                class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800">
-                            <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Produk dapat dikustomisasi (harga bisa berubah)') }}</span>
-                        </label>
-                        <x-input-error :messages="$errors->get('is_customizable')" class="mt-2" />
-                    </div>
-
-                    <div class="mb-4">
-                        <x-input-label for="description" :value="__('Deskripsi Lengkap (Opsional)')" />
-                        <x-textarea id="description" class="block mt-1 w-full"
-                            name="description">{{ old('description', $product->description) }}</x-textarea>
-                        <x-input-error :messages="$errors->get('description')" class="mt-2" />
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="mb-4">
-                            <x-input-label for="wood_type" :value="__('Jenis Kayu (Opsional)')" />
-                            <x-text-input id="wood_type" class="block mt-1 w-full" type="text" name="wood_type"
-                                :value="old('wood_type', $product->wood_type)" />
-                            <x-input-error :messages="$errors->get('wood_type')" class="mt-2" />
-                        </div>
-                        <div class="mb-4">
-                            <x-input-label for="dimensions" :value="__('Dimensi (Opsional)')" />
-                            <x-text-input id="dimensions" class="block mt-1 w-full" type="text" name="dimensions"
-                                :value="old('dimensions', $product->dimensions)" placeholder="misal: P120 x L80 x T75 cm" />
-                            <x-input-error :messages="$errors->get('dimensions')" class="mt-2" />
-                        </div>
-                        <div class="mb-4">
-                            <x-input-label for="finishing" :value="__('Finishing (Opsional)')" />
-                            <x-text-input id="finishing" class="block mt-1 w-full" type="text" name="finishing"
-                                :value="old('finishing', $product->finishing)" />
-                            <x-input-error :messages="$errors->get('finishing')" class="mt-2" />
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <x-input-label for="main_image" :value="__('Gambar Utama Produk (Kosongkan jika tidak ingin diubah)')" />
-                        <input type="file" id="main_image" name="main_image"
-                            class="block w-full text-sm text-gray-500
-                            file:mr-4 file:py-2 file:px-4
-                            file:rounded-md file:border-0
-                            file:text-sm file:font-semibold
-                            file:bg-blue-50 file:text-blue-700
-                            hover:file:bg-blue-100 dark:file:bg-blue-700 dark:file:text-white dark:hover:file:bg-blue-600" />
-                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Format: JPG, PNG, GIF, SVG (Max 2MB)
-                        </p>
-                        <x-input-error :messages="$errors->get('main_image')" class="mt-2" />
-                        @if ($product->main_image_path)
-                            <div class="mt-2">
-                                <p class="text-sm text-gray-600 dark:text-gray-400">Gambar saat ini:</p>
-                                <img src="{{ Storage::url($product->main_image_path) }}" alt="{{ $product->name }}"
-                                    class="w-24 h-24 object-cover rounded">
+                        {{-- Header Section --}}
+                        <div class="p-6 border-b border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
+                                    <i data-lucide="edit-3" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Edit Produk #{{ $product->id }}</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Perbarui informasi produk</p>
+                                </div>
                             </div>
-                        @endif
-                    </div>
+                        </div>
 
-                    <div class="mb-4">
-                        <x-input-label for="additional_images" :value="__('Unggah Gambar Tambahan Baru (Opsional, bisa pilih banyak)')" />
-                        <input type="file" id="additional_images" name="additional_images[]" multiple
-                            class="block w-full text-sm text-gray-500
-                            file:mr-4 file:py-2 file:px-4
-                            file:rounded-md file:border-0
-                            file:text-sm file:font-semibold
-                            file:bg-blue-50 file:text-blue-700
-                            hover:file:bg-blue-100 dark:file:bg-blue-700 dark:file:text-white dark:hover:file:bg-blue-600" />
-                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Format: JPG, PNG, GIF, SVG (Max 2MB per gambar)
-                        </p>
-                        <x-input-error :messages="$errors->get('additional_images')" class="mt-2" />
-                        <x-input-error :messages="$errors->get('additional_images.*')" class="mt-2" />
-                    </div>
-
-                    @if ($product->images->count() > 0)
-                        <div class="mb-4">
-                            <x-input-label :value="__('Gambar Tambahan Saat Ini')" />
-                            <div id="existing-images-container" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-2">
-                                @foreach ($product->images as $image)
-                                    <div id="image-{{ $image->id }}" class="relative group
-                                        @if(old('existing_images_to_delete') && in_array($image->id, old('existing_images_to_delete')))
-                                            opacity-30 border-red-500
-                                        @endif
-                                    ">
-                                        <img src="{{ Storage::url($image->image_path) }}" alt="Produk Gambar"
-                                            class="w-full h-32 object-cover rounded border border-gray-300 dark:border-gray-600">
-                                        <label
-                                            class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
-                                            title="Hapus gambar ini">
-                                            <input type="checkbox" name="existing_images_to_delete[]" value="{{ $image->id }}"
-                                                class="hidden peer image-delete-checkbox"
-                                                data-image-id="{{ $image->id }}"
-                                                {{ old('existing_images_to_delete') && in_array($image->id, old('existing_images_to_delete')) ? 'checked' : '' }}>
-                                            <svg class="w-5 h-5 peer-checked:hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            <svg class="w-5 h-5 hidden peer-checked:block text-red-100" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L10 8.586 7.707 6.293a1 1 0 00-1.414 1.414L8.586 10l-2.293 2.293a1 1 0 001.414 1.414L10 11.414l2.293 2.293a1 1 0 001.414-1.414L11.414 10l2.293-2.293z" clip-rule="evenodd"></path>
-                                            </svg>
+                        {{-- Form Section --}}
+                        <div class="p-6">
+                            {{-- Basic Information --}}
+                            <div class="mb-8">
+                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center">
+                                    <i data-lucide="info" class="w-5 h-5 mr-2 text-blue-500"></i>
+                                    Informasi Dasar
+                                </h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {{-- Category --}}
+                                    <div>
+                                        <label for="category_id" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                            <div class="flex items-center space-x-2">
+                                                <i data-lucide="folder" class="w-4 h-4 text-blue-500"></i>
+                                                <span>Kategori Produk</span>
+                                            </div>
                                         </label>
-                                        <p class="text-center text-xs text-gray-500 mt-1 image-delete-status" id="status-{{ $image->id }}">
-                                            @if(old('existing_images_to_delete') && in_array($image->id, old('existing_images_to_delete')))
-                                                <span class="text-red-500">Akan Dihapus</span>
-                                            @endif
-                                        </p>
+                                        <select id="category_id" name="category_id"
+                                            class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                            required>
+                                            <option value="">Pilih Kategori</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}"
+                                                    {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                                                    {{ $category->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('category_id')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
                                     </div>
-                                @endforeach
+
+                                    {{-- Product Name --}}
+                                    <div>
+                                        <label for="name" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                            <div class="flex items-center space-x-2">
+                                                <i data-lucide="package" class="w-4 h-4 text-blue-500"></i>
+                                                <span>Nama Produk</span>
+                                            </div>
+                                        </label>
+                                        <input type="text" id="name" name="name" value="{{ old('name', $product->name) }}"
+                                            class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                            placeholder="Masukkan nama produk" required autofocus>
+                                        @error('name')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Product Type --}}
+                                    <div>
+                                        <label for="product_type" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                            <div class="flex items-center space-x-2">
+                                                <i data-lucide="tag" class="w-4 h-4 text-blue-500"></i>
+                                                <span>Jenis Produk (Opsional)</span>
+                                            </div>
+                                        </label>
+                                        <input type="text" id="product_type" name="product_type" value="{{ old('product_type', $product->product_type) }}"
+                                            class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                            placeholder="misal: Gebyok Ukiran Jepara">
+                                        @error('product_type')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Motif --}}
+                                    <div>
+                                        <label for="motif" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                            <div class="flex items-center space-x-2">
+                                                <i data-lucide="palette" class="w-4 h-4 text-blue-500"></i>
+                                                <span>Motif (Opsional)</span>
+                                            </div>
+                                        </label>
+                                        <input type="text" id="motif" name="motif" value="{{ old('motif', $product->motif) }}"
+                                            class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                            placeholder="misal: Ukiran Klasik Jawa - Flora dan Sulur">
+                                        @error('motif')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
-                            <x-input-error :messages="$errors->get('existing_images_to_delete')" class="mt-2" />
+
+                            {{-- Pricing & Customization --}}
+                            <div class="mb-8">
+                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center">
+                                    <i data-lucide="dollar-sign" class="w-5 h-5 mr-2 text-blue-500"></i>
+                                    Harga & Kustomisasi
+                                </h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {{-- Price --}}
+                                    <div>
+                                        <label for="price" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                            <div class="flex items-center space-x-2">
+                                                <i data-lucide="dollar-sign" class="w-4 h-4 text-blue-500"></i>
+                                                <span>Harga (Opsional)</span>
+                                            </div>
+                                        </label>
+                                        <input type="number" id="price" name="price" value="{{ old('price', $product->price) }}"
+                                            class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                            placeholder="misal: 30000000 untuk Rp30.000.000" min="0">
+                                        @error('price')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Customizable Checkbox --}}
+                                    <div class="flex items-center justify-center">
+                                        <label for="is_customizable" class="flex items-center p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-600 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors">
+                                            <input type="checkbox" id="is_customizable" name="is_customizable" value="1"
+                                                {{ old('is_customizable', $product->is_customizable) ? 'checked' : '' }}
+                                                class="w-4 h-4 text-blue-600 bg-slate-100 border-slate-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-slate-800 focus:ring-2 dark:bg-slate-700 dark:border-slate-600">
+                                            <span class="ml-3 text-sm text-slate-700 dark:text-slate-300">
+                                                <i data-lucide="settings" class="w-4 h-4 inline mr-1"></i>
+                                                Produk dapat dikustomisasi
+                                            </span>
+                                        </label>
+                                        @error('is_customizable')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Specifications --}}
+                            <div class="mb-8">
+                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center">
+                                    <i data-lucide="ruler" class="w-5 h-5 mr-2 text-blue-500"></i>
+                                    Spesifikasi
+                                </h4>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    {{-- Wood Type --}}
+                                    <div>
+                                        <label for="wood_type" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                            <div class="flex items-center space-x-2">
+                                                <i data-lucide="tree" class="w-4 h-4 text-blue-500"></i>
+                                                <span>Jenis Kayu (Opsional)</span>
+                                            </div>
+                                        </label>
+                                        <input type="text" id="wood_type" name="wood_type" value="{{ old('wood_type', $product->wood_type) }}"
+                                            class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                            placeholder="misal: Jati, Mahoni, dll">
+                                        @error('wood_type')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Dimensions --}}
+                                    <div>
+                                        <label for="dimensions" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                            <div class="flex items-center space-x-2">
+                                                <i data-lucide="ruler" class="w-4 h-4 text-blue-500"></i>
+                                                <span>Dimensi (Opsional)</span>
+                                            </div>
+                                        </label>
+                                        <input type="text" id="dimensions" name="dimensions" value="{{ old('dimensions', $product->dimensions) }}"
+                                            class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                            placeholder="misal: P120 x L80 x T75 cm">
+                                        @error('dimensions')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Finishing --}}
+                                    <div>
+                                        <label for="finishing" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                            <div class="flex items-center space-x-2">
+                                                <i data-lucide="brush" class="w-4 h-4 text-blue-500"></i>
+                                                <span>Finishing (Opsional)</span>
+                                            </div>
+                                        </label>
+                                        <input type="text" id="finishing" name="finishing" value="{{ old('finishing', $product->finishing) }}"
+                                            class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                            placeholder="misal: Natural, Melamik, dll">
+                                        @error('finishing')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Descriptions --}}
+                            <div class="mb-8">
+                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center">
+                                    <i data-lucide="file-text" class="w-5 h-5 mr-2 text-blue-500"></i>
+                                    Deskripsi
+                                </h4>
+                                <div class="space-y-6">
+                                    {{-- Short Description --}}
+                                    <div>
+                                        <label for="short_description" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                            <div class="flex items-center space-x-2">
+                                                <i data-lucide="file-text" class="w-4 h-4 text-blue-500"></i>
+                                                <span>Deskripsi Singkat (Opsional)</span>
+                                            </div>
+                                        </label>
+                                        <textarea id="short_description" name="short_description" rows="3"
+                                            class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+                                            placeholder="Deskripsi singkat produk">{{ old('short_description', $product->short_description) }}</textarea>
+                                        @error('short_description')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Full Description --}}
+                                    <div>
+                                        <label for="description" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                            <div class="flex items-center space-x-2">
+                                                <i data-lucide="file-text" class="w-4 h-4 text-blue-500"></i>
+                                                <span>Deskripsi Lengkap (Opsional)</span>
+                                            </div>
+                                        </label>
+                                        <textarea id="description" name="description" rows="5"
+                                            class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+                                            placeholder="Deskripsi lengkap produk">{{ old('description', $product->description) }}</textarea>
+                                        @error('description')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Image Upload --}}
+                            <div class="mb-8">
+                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center">
+                                    <i data-lucide="image" class="w-5 h-5 mr-2 text-blue-500"></i>
+                                    Gambar Produk
+                                </h4>
+                                <div class="space-y-4">
+                                    {{-- Current Image Display --}}
+                                    @if($product->main_image_path)
+                                        <div class="mb-4">
+                                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                                <div class="flex items-center space-x-2">
+                                                    <i data-lucide="image" class="w-4 h-4 text-blue-500"></i>
+                                                    <span>Gambar Saat Ini</span>
+                                                </div>
+                                            </label>
+                                            <div class="w-32 h-32 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-600">
+                                                <img src="{{ Storage::url($product->main_image_path) }}" 
+                                                     alt="{{ $product->name }}" 
+                                                     class="w-full h-full object-cover">
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    {{-- Main Image --}}
+                                    <div>
+                                        <label for="main_image" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                            <div class="flex items-center space-x-2">
+                                                <i data-lucide="image" class="w-4 h-4 text-blue-500"></i>
+                                                <span>Ganti Gambar Utama (Opsional)</span>
+                                            </div>
+                                        </label>
+                                        <input type="file" id="main_image" name="main_image" accept="image/*"
+                                            class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                        @error('main_image')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Additional Images --}}
+                                    <div>
+                                        <label for="additional_images" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                            <div class="flex items-center space-x-2">
+                                                <i data-lucide="images" class="w-4 h-4 text-blue-500"></i>
+                                                <span>Gambar Tambahan (Opsional)</span>
+                                            </div>
+                                        </label>
+                                        <input type="file" id="additional_images" name="additional_images[]" accept="image/*" multiple
+                                            class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                        @error('additional_images')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Action Buttons --}}
+                            <div class="flex items-center justify-between pt-6 border-t border-slate-200 dark:border-slate-700">
+                                <a href="{{ route('products.index') }}"
+                                   class="group flex items-center px-6 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200">
+                                    <i data-lucide="arrow-left" class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"></i>
+                                    Kembali ke Daftar
+                                </a>
+                                <button type="submit"
+                                        class="group flex items-center px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+                                    <i data-lucide="save" class="w-4 h-4 mr-2 group-hover:scale-110 transition-transform"></i>
+                                    Perbarui Produk
+                                </button>
+                            </div>
                         </div>
-                    @endif
-
-                    <div class="flex items-center justify-end mt-4">
-                        <a href="{{ route('products.index') }}"
-                            class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 mr-4">Batal</a>
-                        <x-primary-button>
-                            {{ __('Perbarui Produk') }}
-                        </x-primary-button>
-                    </div>
-                </form>
-
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
-    {{-- Script JavaScript baru --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const deleteCheckboxes = document.querySelectorAll('.image-delete-checkbox');
-
-            deleteCheckboxes.forEach(checkbox => {
-                const imageId = checkbox.dataset.imageId;
-                const imageDiv = document.getElementById(`image-${imageId}`);
-                const statusSpan = document.getElementById(`status-${imageId}`);
-
-                function updateImageDisplay() {
-                    if (checkbox.checked) {
-                        imageDiv.classList.add('opacity-30', 'border-red-500');
-                        imageDiv.classList.remove('border-gray-300', 'dark:border-gray-600');
-                        statusSpan.innerHTML = '<span class="text-red-500">Akan Dihapus</span>';
-                    } else {
-                        imageDiv.classList.remove('opacity-30', 'border-red-500');
-                        imageDiv.classList.add('border-gray-300', 'dark:border-gray-600');
-                        statusSpan.innerHTML = '';
-                    }
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Initialize Lucide icons
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
                 }
 
-                updateImageDisplay();
-                checkbox.addEventListener('change', updateImageDisplay);
+                // Animate cards on load
+                const animateCards = () => {
+                    const cards = document.querySelectorAll('.group.relative');
+                    cards.forEach((card, index) => {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(30px)';
+                        card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 150);
+                    });
+                };
+
+                // Start animations
+                setTimeout(animateCards, 200);
+
+                // Add form validation feedback
+                const inputs = document.querySelectorAll('input, textarea, select');
+                inputs.forEach(input => {
+                    input.addEventListener('focus', function() {
+                        this.parentElement.classList.add('ring-2', 'ring-blue-500');
+                    });
+                    
+                    input.addEventListener('blur', function() {
+                        this.parentElement.classList.remove('ring-2', 'ring-blue-500');
+                    });
+                });
             });
-        });
-    </script>
+        </script>
+    @endpush
 </x-app-layout>

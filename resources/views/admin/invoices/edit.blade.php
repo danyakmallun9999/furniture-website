@@ -1,257 +1,387 @@
 {{-- resources/views/admin/invoices/edit.blade.php --}}
 
-<x-app-layout> {{-- START x-app-layout --}}
-    <x-slot name="header"> {{-- START x-slot header --}}
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Invoice') }} - {{ $invoice->invoice_number }}
-        </h2>
-    </x-slot> {{-- END x-slot header --}}
+<x-app-layout>
+    <x-slot name="header">
+        <div class="flex items-center justify-between w-full">
+            <div class="flex items-center space-x-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white leading-tight">
+                        Edit Invoice - {{ $invoice->invoice_number }}
+                    </h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                        Perbarui informasi invoice yang ada
+                    </p>
+                </div>
+            </div>
+        </div>
+    </x-slot>
 
-    {{-- Konten utama form berada di sini --}}
-    <div class="py-12">
+    <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6 border border-gray-200">
-
-                {{-- Flash Messages --}}
-                @if (session('success'))
-                    {{-- START Blade If --}}
-                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
-                        role="alert">
-                        <span class="block sm:inline">{{ session('success') }}</span>
+            {{-- Flash Messages --}}
+            @if (session('success'))
+                <div class="mb-6 group relative">
+                    <div class="absolute inset-0 bg-emerald-100 dark:bg-emerald-900/20 rounded-2xl opacity-75 group-hover:opacity-100 blur-sm group-hover:blur-none transition-all duration-300"></div>
+                    <div class="relative bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-xl border border-emerald-200 dark:border-emerald-800">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-emerald-500 rounded-xl flex items-center justify-center">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <span class="text-emerald-700 dark:text-emerald-300 font-medium">{{ session('success') }}</span>
+                        </div>
                     </div>
-                @endif {{-- END Blade If --}}
-                @if ($errors->any()) {{-- START Blade If --}}
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
-                        role="alert">
-                        <ul class="list-disc list-inside">
-                            @foreach ($errors->all() as $error)
-                                {{-- START Blade Foreach --}}
-                                <li>{{ $error }}</li>
-                            @endforeach {{-- END Blade Foreach --}}
-                        </ul>
-                    </div>
-                @endif {{-- END Blade If --}}
+                </div>
+            @endif
 
-                <form action="{{ route('invoices.update', $invoice->id) }}" method="POST" x-data="invoiceForm(
-                    JSON.parse('{{ $invoice->toJson() }}'),
-                    JSON.parse('{{ $invoice->items->toJson() }}'),
-                    '{{ old('customer_input_method', $invoice->customer_id ? 'existing' : 'new') }}'
-                    {{-- Lewatkan customerInputMethod --}}
-                )">
-                    @csrf
-                    @method('PUT') {{-- Penting untuk operasi update --}}
-
-                    {{-- Bagian Detail Invoice --}}
-                    <div class="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Detail Invoice</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {{-- Customer input method - x-data dipindahkan ke fungsi JS --}}
+            @if ($errors->any())
+                <div class="mb-6 group relative">
+                    <div class="absolute inset-0 bg-red-100 dark:bg-red-900/20 rounded-2xl opacity-75 group-hover:opacity-100 blur-sm group-hover:blur-none transition-all duration-300"></div>
+                    <div class="relative bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-xl border border-red-200 dark:border-red-800">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-red-500 rounded-xl flex items-center justify-center">
+                                <i data-lucide="alert-circle" class="w-4 h-4 text-white"></i>
+                            </div>
                             <div>
-                                <label class="block font-medium text-sm text-gray-700 mb-2">Pilih Pelanggan</label>
-                                <div class="flex items-center space-x-4 mb-4">
-                                    <label class="inline-flex items-center">
-                                        <input type="radio" x-model="customerInputMethod" value="existing"
-                                            name="customer_input_method" class="form-radio text-indigo-600"
-                                            @change="if(customerInputMethod === 'existing') { $refs.newCustomerName.value = ''; }">
-                                        <span class="ml-2 text-sm text-gray-700">Pelanggan Terdaftar</span>
-                                    </label>
-                                    <label class="inline-flex items-center">
-                                        <input type="radio" x-model="customerInputMethod" value="new"
-                                            name="customer_input_method" class="form-radio text-indigo-600"
-                                            @change="if(customerInputMethod === 'new') { $refs.existingCustomerId.value = ''; }">
-                                        <span class="ml-2 text-sm text-gray-700">Pelanggan Baru (Manual)</span>
-                                    </label>
+                                <span class="text-red-700 dark:text-red-300 font-medium">Terjadi kesalahan:</span>
+                                <ul class="list-disc list-inside mt-1 text-sm text-red-600 dark:text-red-400">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            {{-- Main Form Card --}}
+            <div class="group relative">
+                <div class="absolute inset-0 bg-slate-100 dark:bg-slate-800 rounded-2xl opacity-75 group-hover:opacity-100 blur-sm group-hover:blur-none transition-all duration-300"></div>
+                <div class="relative bg-white dark:bg-slate-900 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700">
+                    <form action="{{ route('invoices.update', $invoice->id) }}" method="POST" x-data="invoiceForm(
+                        JSON.parse('{{ $invoice->toJson() }}'),
+                        JSON.parse('{{ $invoice->items->toJson() }}'),
+                        '{{ old('customer_input_method', $invoice->customer_id ? 'existing' : 'new') }}'
+                    )">
+                        @csrf
+                        @method('PUT')
+
+                        {{-- Header Section --}}
+                        <div class="p-6 border-b border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
+                                    <i data-lucide="edit-3" class="w-5 h-5 text-white"></i>
                                 </div>
-
-                                {{-- Input untuk Pelanggan Terdaftar --}}
-                                <div x-show="customerInputMethod === 'existing'"> {{-- START Alpine x-show --}}
-                                    <label for="customer_id" class="sr-only">Pelanggan Terdaftar</label>
-                                    <select id="customer_id" name="customer_id" x-ref="existingCustomerId"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        x-bind:required="customerInputMethod === 'existing'">
-                                        <option value="">Pilih Pelanggan</option>
-                                        @foreach ($customers as $customer)
-                                            {{-- START Blade Foreach --}}
-                                            <option value="{{ $customer->id }}"
-                                                {{ old('customer_id', $invoice->customer_id) == $customer->id ? 'selected' : '' }}>
-                                                {{ $customer->name }} ({{ $customer->email ?? $customer->phone }})
-                                            </option>
-                                        @endforeach {{-- END Blade Foreach --}}
-                                    </select>
-                                    @error('customer_id')
-                                        <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
-                                    @enderror
-                                </div> {{-- END Alpine x-show --}}
-
-                                {{-- Input untuk Pelanggan Baru --}}
-                                <div x-show="customerInputMethod === 'new'"> {{-- START Alpine x-show --}}
-                                    <label for="new_customer_name" class="sr-only">Nama Pelanggan Baru</label>
-                                    <input type="text" id="new_customer_name" name="new_customer_name"
-                                        x-ref="newCustomerName"
-                                        value="{{ old('new_customer_name', $invoice->customer->name ?? '') }}"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        placeholder="Nama Pelanggan Baru"
-                                        x-bind:required="customerInputMethod === 'new'">
-                                    @error('new_customer_name')
-                                        <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
-                                    @enderror
-                                </div> {{-- END Alpine x-show --}}
-                            </div> {{-- END of customer selection div --}}
-                            <div>
-                                <label for="invoice_number" class="block font-medium text-sm text-gray-700">Nomor
-                                    Invoice</label>
-                                <input type="text" id="invoice_number" name="invoice_number"
-                                    value="{{ old('invoice_number', $invoice->invoice_number) }}"
-                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                    required>
-                                @error('invoice_number')
-                                    <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div>
-                                <label for="invoice_date" class="block font-medium text-sm text-gray-700">Tanggal
-                                    Invoice</label>
-                                <input type="date" id="invoice_date" name="invoice_date"
-                                    value="{{ old('invoice_date', $invoice->invoice_date->format('Y-m-d')) }}"
-                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                    required>
-                                @error('invoice_date')
-                                    <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div>
-                                <label for="due_date" class="block font-medium text-sm text-gray-700">Tanggal Jatuh
-                                    Tempo (Opsional)</label>
-                                <input type="date" id="due_date" name="due_date"
-                                    value="{{ old('due_date', $invoice->due_date ? $invoice->due_date->format('Y-m-d') : '') }}"
-                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                                @error('due_date')
-                                    <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
-                                @enderror
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Edit Invoice #{{ $invoice->invoice_number }}</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Perbarui informasi invoice</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="mt-4">
-                            <label for="notes" class="block font-medium text-sm text-gray-700">Catatan
-                                (Opsional)</label>
-                            <textarea id="notes" name="notes"
-                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ old('notes', $invoice->notes) }}</textarea>
-                            @error('notes')
-                                <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
 
-                    {{-- Bagian Item Invoice (Dinamis) --}}
-                    <div class="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Item Invoice</h3>
-                        <div id="invoice-items-container">
-                            <template x-for="(item, index) in items" :key="item.id"> {{-- START Alpine x-for --}}
-                                <div
-                                    class="grid grid-cols-1 md:grid-cols-6 gap-4 items-end mb-4 p-4 border border-gray-200 rounded-lg bg-white shadow-sm">
-                                    <input type="hidden" :name="'items[' + index + '][item_id]'"
-                                        :value="item.id">
-                                    <input type="hidden" :name="'items[' + index + '][product_id]'"
-                                        :value="item.product_id">
-                                    <input type="hidden" :name="'items[' + index + '][product_name_at_sale]'"
-                                        :value="item.product_name_at_sale">
-                                    <input type="hidden" :name="'items[' + index + '][product_motif_at_sale]'"
-                                        :value="item.product_motif_at_sale">
-                                    <input type="hidden" :name="'items[' + index + '][total_item_price]'"
-                                        :value="item.total_item_price">
+                        {{-- Detail Invoice Section --}}
+                        <div class="p-6 border-b border-slate-200 dark:border-slate-700">
+                            <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center">
+                                <i data-lucide="file-text" class="w-5 h-5 mr-2 text-blue-500"></i>
+                                Detail Invoice
+                            </h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {{-- Customer Selection --}}
+                                <div x-data="{ customerInputMethod: '{{ old('customer_input_method', $invoice->customer_id ? 'existing' : 'new') }}' }" class="md:col-span-2">
+                                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
+                                        <div class="flex items-center space-x-2">
+                                            <i data-lucide="user" class="w-4 h-4 text-blue-500"></i>
+                                            <span>Pilih Pelanggan</span>
+                                        </div>
+                                    </label>
+                                    <div class="flex items-center space-x-6 mb-4">
+                                        <label class="inline-flex items-center">
+                                            <input type="radio" x-model="customerInputMethod" value="existing"
+                                                name="customer_input_method" class="form-radio text-blue-600"
+                                                @change="if(customerInputMethod === 'existing') { $refs.newCustomerName.value = ''; }">
+                                            <span class="ml-2 text-sm text-slate-700 dark:text-slate-300">Pelanggan Terdaftar</span>
+                                        </label>
+                                        <label class="inline-flex items-center">
+                                            <input type="radio" x-model="customerInputMethod" value="new"
+                                                name="customer_input_method" class="form-radio text-blue-600"
+                                                @change="if(customerInputMethod === 'new') { $refs.existingCustomerId.value = ''; }">
+                                            <span class="ml-2 text-sm text-slate-700 dark:text-slate-300">Pelanggan Baru (Manual)</span>
+                                        </label>
+                                    </div>
 
-                                    <div class="md:col-span-2">
-                                        <label class="block font-medium text-sm text-gray-700">Produk</label>
-                                        <select :name="'items[' + index + '][product_id_select]'"
-                                            @change="updateItemProduct(index, $event.target.value)"
-                                            class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                            required>
-                                            <option value="">Pilih Produk</option>
-                                            @foreach ($products as $product)
-                                                {{-- START Blade Foreach --}}
-                                                <option value="{{ $product->id }}"
-                                                    :selected="item.product_id == {{ $product->id }}">
-                                                    {{ $product->name }}
-                                                    (Rp{{ number_format($product->price ?? 0, 0, ',', '.') }})
+                                    {{-- Existing Customer Selection --}}
+                                    <div x-show="customerInputMethod === 'existing'">
+                                        <select id="customer_id" name="customer_id" x-ref="existingCustomerId"
+                                            class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                            x-bind:required="customerInputMethod === 'existing'">
+                                            <option value="">Pilih Pelanggan</option>
+                                            @foreach ($customers as $customer)
+                                                <option value="{{ $customer->id }}"
+                                                    {{ old('customer_id', $invoice->customer_id) == $customer->id ? 'selected' : '' }}>
+                                                    {{ $customer->name }} ({{ $customer->email ?? $customer->phone }})
                                                 </option>
-                                            @endforeach {{-- END Blade Foreach --}}
+                                            @endforeach
                                         </select>
+                                        @error('customer_id')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
                                     </div>
-                                    <div>
-                                        <label class="block font-medium text-sm text-gray-700">Harga Satuan</label>
-                                        <input type="number" :name="'items[' + index + '][unit_price]'"
-                                            x-model.number="item.unit_price" @input="calculateTotal()"
-                                            class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                            required step="0.01">
-                                    </div>
-                                    <div>
-                                        <label class="block font-medium text-sm text-gray-700">Kuantitas</label>
-                                        <input type="number" :name="'items[' + index + '][quantity]'"
-                                            x-model.number="item.quantity" @input="calculateTotal()"
-                                            class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                            required min="1">
-                                    </div>
-                                    <div>
-                                        <label class="block font-medium text-sm text-gray-700">Subtotal</label>
-                                        <input type="text" x-model="formatCurrency(item.total_item_price)"
-                                            class="mt-1 block w-full border-gray-300 bg-gray-100 rounded-md shadow-sm"
-                                            readonly>
-                                    </div>
-                                    <div class="flex justify-end md:col-span-1">
-                                        <button type="button" @click="removeItem(index)"
-                                            class="inline-flex items-center px-3 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">Hapus</button>
+
+                                    {{-- New Customer Input --}}
+                                    <div x-show="customerInputMethod === 'new'">
+                                        <input type="text" id="new_customer_name" name="new_customer_name"
+                                            x-ref="newCustomerName"
+                                            value="{{ old('new_customer_name', $invoice->customer->name ?? '') }}"
+                                            class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                            placeholder="Nama Pelanggan Baru"
+                                            x-bind:required="customerInputMethod === 'new'">
+                                        @error('new_customer_name')
+                                            <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                                <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                                {{ $message }}
+                                            </p>
+                                        @enderror
                                     </div>
                                 </div>
-                            </template> {{-- END Alpine x-for --}}
-                        </div>
-                        <button type="button" @click="addItem()"
-                            class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 mt-4">
-                            Tambah Item
-                        </button>
-                    </div>
 
-                    {{-- Bagian Total & Status Pembayaran --}}
-                    <div class="mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="md:col-span-1">
-                                <label for="payment_status" class="block font-medium text-sm text-gray-700">Status
-                                    Pembayaran</label>
-                                <select id="payment_status" name="payment_status"
-                                    class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                    required>
-                                    <option value="pending"
-                                        {{ old('payment_status', $invoice->payment_status) == 'pending' ? 'selected' : '' }}>
-                                        Pending</option>
-                                    <option value="paid"
-                                        {{ old('payment_status', $invoice->payment_status) == 'paid' ? 'selected' : '' }}>
-                                        Paid</option>
-                                    <option value="canceled"
-                                        {{ old('payment_status', $invoice->payment_status) == 'canceled' ? 'selected' : '' }}>
-                                        Canceled</option>
-                                </select>
-                                @error('payment_status')
-                                    <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
+                                {{-- Invoice Number --}}
+                                <div>
+                                    <label for="invoice_number" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <i data-lucide="hash" class="w-4 h-4 text-blue-500"></i>
+                                            <span>Nomor Invoice</span>
+                                        </div>
+                                    </label>
+                                    <input type="text" id="invoice_number" name="invoice_number"
+                                        value="{{ old('invoice_number', $invoice->invoice_number) }}"
+                                        class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                        required>
+                                    @error('invoice_number')
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                            <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+
+                                {{-- Invoice Date --}}
+                                <div>
+                                    <label for="invoice_date" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <i data-lucide="calendar" class="w-4 h-4 text-blue-500"></i>
+                                            <span>Tanggal Invoice</span>
+                                        </div>
+                                    </label>
+                                    <input type="date" id="invoice_date" name="invoice_date"
+                                        value="{{ old('invoice_date', $invoice->invoice_date->format('Y-m-d')) }}"
+                                        class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                        required>
+                                    @error('invoice_date')
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                            <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+
+                                {{-- Due Date --}}
+                                <div>
+                                    <label for="due_date" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <i data-lucide="clock" class="w-4 h-4 text-blue-500"></i>
+                                            <span>Tanggal Jatuh Tempo (Opsional)</span>
+                                        </div>
+                                    </label>
+                                    <input type="date" id="due_date" name="due_date" 
+                                        value="{{ old('due_date', $invoice->due_date ? $invoice->due_date->format('Y-m-d') : '') }}"
+                                        class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                                    @error('due_date')
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                            <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+
+                                {{-- Payment Status --}}
+                                <div>
+                                    <label for="payment_status" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <i data-lucide="activity" class="w-4 h-4 text-blue-500"></i>
+                                            <span>Status Pembayaran</span>
+                                        </div>
+                                    </label>
+                                    <select id="payment_status" name="payment_status"
+                                        class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                        required>
+                                        <option value="pending" {{ old('payment_status', $invoice->payment_status) == 'pending' ? 'selected' : '' }}>Pending</option>
+                                        <option value="paid" {{ old('payment_status', $invoice->payment_status) == 'paid' ? 'selected' : '' }}>Paid</option>
+                                        <option value="canceled" {{ old('payment_status', $invoice->payment_status) == 'canceled' ? 'selected' : '' }}>Canceled</option>
+                                    </select>
+                                    @error('payment_status')
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                            <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            {{-- Notes --}}
+                            <div class="mt-6">
+                                <label for="notes" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                    <div class="flex items-center space-x-2">
+                                        <i data-lucide="file-text" class="w-4 h-4 text-blue-500"></i>
+                                        <span>Catatan (Opsional)</span>
+                                    </div>
+                                </label>
+                                <textarea id="notes" name="notes" rows="3"
+                                    class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+                                    placeholder="Tambahkan catatan untuk invoice ini">{{ old('notes', $invoice->notes) }}</textarea>
+                                @error('notes')
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                        <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                        {{ $message }}
+                                    </p>
                                 @enderror
                             </div>
-                            <div class="md:col-span-1 text-right">
-                                <label class="block font-medium text-sm text-gray-700">Total Invoice</label>
-                                <p class="text-3xl font-bold text-indigo-600 mt-1">Rp <span
-                                        x-text="formatCurrency(totalAmount)">0</span></p>
-                                <input type="hidden" name="total_amount" x-model.number="totalAmount">
+                        </div>
+
+                        {{-- Invoice Items Section --}}
+                        <div class="p-6 border-b border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center justify-between mb-6">
+                                <h4 class="text-lg font-semibold text-slate-900 dark:text-white flex items-center">
+                                    <i data-lucide="package" class="w-5 h-5 mr-2 text-blue-500"></i>
+                                    Item Invoice
+                                </h4>
+                                <button type="button" @click="addItem()"
+                                    class="group flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+                                    <i data-lucide="plus" class="w-4 h-4 mr-2 group-hover:scale-110 transition-transform"></i>
+                                    Tambah Item
+                                </button>
+                            </div>
+
+                            <div id="invoice-items-container" class="space-y-4">
+                                <template x-for="(item, index) in items" :key="item.id">
+                                    <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                                        <div class="grid grid-cols-1 lg:grid-cols-6 gap-4 items-end">
+                                            <input type="hidden" :name="'items[' + index + '][product_id]'" :value="item.product_id">
+                                            <input type="hidden" :name="'items[' + index + '][product_name_at_sale]'" :value="item.product_name_at_sale">
+                                            <input type="hidden" :name="'items[' + index + '][product_motif_at_sale]'" :value="item.product_motif_at_sale">
+                                            <input type="hidden" :name="'items[' + index + '][total_item_price]'" :value="item.total_item_price">
+
+                                            {{-- Product Selection --}}
+                                            <div class="lg:col-span-2">
+                                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                                    <div class="flex items-center space-x-2">
+                                                        <i data-lucide="package" class="w-4 h-4 text-blue-500"></i>
+                                                        <span>Produk</span>
+                                                    </div>
+                                                </label>
+                                                <select :name="'items[' + index + '][product_id_select]'"
+                                                    @change="updateItemProduct(index, $event.target.value)"
+                                                    class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                                    required>
+                                                    <option value="">Pilih Produk</option>
+                                                    @foreach ($products as $product)
+                                                        <option value="{{ $product->id }}" :selected="item.product_id == {{ $product->id }}">
+                                                            {{ $product->name }} (Rp{{ number_format($product->price ?? 0, 0, ',', '.') }})
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            {{-- Unit Price --}}
+                                            <div>
+                                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                                    <div class="flex items-center space-x-2">
+                                                        <i data-lucide="dollar-sign" class="w-4 h-4 text-blue-500"></i>
+                                                        <span>Harga Satuan</span>
+                                                    </div>
+                                                </label>
+                                                <input type="number" :name="'items[' + index + '][unit_price]'"
+                                                    x-model.number="item.unit_price" @input="calculateTotal()"
+                                                    class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                                    required step="0.01">
+                                            </div>
+
+                                            {{-- Quantity --}}
+                                            <div>
+                                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                                    <div class="flex items-center space-x-2">
+                                                        <i data-lucide="hash" class="w-4 h-4 text-blue-500"></i>
+                                                        <span>Kuantitas</span>
+                                                    </div>
+                                                </label>
+                                                <input type="number" :name="'items[' + index + '][quantity]'"
+                                                    x-model.number="item.quantity" @input="calculateTotal()"
+                                                    class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                                    required min="1">
+                                            </div>
+
+                                            {{-- Subtotal --}}
+                                            <div>
+                                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                                    <div class="flex items-center space-x-2">
+                                                        <i data-lucide="calculator" class="w-4 h-4 text-blue-500"></i>
+                                                        <span>Subtotal</span>
+                                                    </div>
+                                                </label>
+                                                <input type="text" x-model="formatCurrency(item.total_item_price)"
+                                                    class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white"
+                                                    readonly>
+                                            </div>
+
+                                            {{-- Remove Button --}}
+                                            <div class="flex justify-end">
+                                                <button type="button" @click="removeItem(index)"
+                                                    class="group p-3 rounded-xl bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 transition-all duration-200 transform hover:scale-110">
+                                                    <i data-lucide="trash-2" class="w-4 h-4 text-red-600 dark:text-red-400 group-hover:text-red-700 dark:group-hover:text-red-300"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
                             </div>
                         </div>
-                    </div>
 
-                    {{-- Tombol Simpan --}}
-                    <div class="flex items-center justify-end mt-6">
-                        <a href="{{ route('invoices.index') }}"
-                            class="text-gray-600 hover:text-gray-900 mr-4">Batal</a>
-                        <button type="submit"
-                            class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                            {{ __('Perbarui Invoice') }}
-                        </button>
-                    </div>
-                </form>
+                        {{-- Total Section --}}
+                        <div class="p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-slate-900 dark:text-white flex items-center">
+                                        <i data-lucide="dollar-sign" class="w-5 h-5 mr-2 text-emerald-500"></i>
+                                        Total Invoice
+                                    </h4>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Total keseluruhan invoice</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
+                                        Rp <span x-text="formatCurrency(totalAmount)">0</span>
+                                    </div>
+                                    <input type="hidden" name="total_amount" x-model.number="totalAmount">
+                                </div>
+                            </div>
+                        </div>
 
+                        {{-- Action Buttons --}}
+                        <div class="flex items-center justify-between p-6 border-t border-slate-200 dark:border-slate-700">
+                            <a href="{{ route('invoices.index') }}"
+                               class="group flex items-center px-6 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200">
+                                <i data-lucide="arrow-left" class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"></i>
+                                Kembali ke Daftar
+                            </a>
+                            <button type="submit"
+                                    class="group flex items-center px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+                                <i data-lucide="save" class="w-4 h-4 mr-2 group-hover:scale-110 transition-transform"></i>
+                                Perbarui Invoice
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -260,59 +390,36 @@
         <script>
             const allProducts = @json($products->keyBy('id'));
 
-            function invoiceForm(invoiceData = {}, invoiceItems = []) {
+            function invoiceForm(invoiceData, existingItems, customerInputMethod) {
                 return {
                     items: [],
                     totalAmount: 0,
                     nextItemId: 1,
-                    // customerInputMethod diinisialisasi di HTML menggunakan x-data di div terluar dari bagian pelanggan
-                    customerInputMethod: '{{ old('customer_input_method', $invoice->customer_id ? 'existing' : 'new') }}', // <<-- Inisialisasi di sini
+                    customerInputMethod: customerInputMethod,
 
                     init() {
-                        // Logika inisialisasi customerInputMethod
-                        const oldNewCustomerName = "{{ old('new_customer_name', '') }}";
-                        if (oldNewCustomerName) { // START JS If (untuk old input)
-                            this.customerInputMethod = 'new';
-                            this.$nextTick(() => {
-                                if (this.$refs.newCustomerName) {
-                                    this.$refs.newCustomerName.value = oldNewCustomerName;
-                                }
+                        // Initialize with existing items if editing
+                        if (existingItems && existingItems.length > 0) {
+                            existingItems.forEach((item, index) => {
+                                this.items.push({
+                                    id: this.nextItemId++,
+                                    product_id: item.product_id,
+                                    product_name_at_sale: item.product_name_at_sale,
+                                    product_motif_at_sale: item.product_motif_at_sale,
+                                    unit_price: parseFloat(item.unit_price),
+                                    quantity: parseInt(item.quantity),
+                                    total_item_price: parseFloat(item.total_item_price)
+                                });
                             });
+                        } else {
+                            this.addItem();
                         }
-                        // Tambahkan ini agar customerInputMethod diinisialisasi.
-                        // Ini adalah $watch yang dipasang pada properti customerInputMethod di root Alpine.js
-                        // untuk mengosongkan field yang tidak relevan.
-                        this.$watch('customerInputMethod', (value) => {
-                            if (value === 'existing' && this.$refs.newCustomerName) {
-                                this.$refs.newCustomerName.value = '';
-                            } else if (value === 'new' && this.$refs.existingCustomerId) {
-                                this.$refs.existingCustomerId.value = '';
-                            }
-                        });
-
-                        // Inisialisasi item invoice
-                        if (invoiceItems && invoiceItems.length > 0) { // START JS If (untuk invoiceItems)
-                            this.items = invoiceItems.map(item => ({
-                                id: item.id,
-                                product_id: item.product_id,
-                                product_name_at_sale: item.product_name_at_sale,
-                                product_motif_at_sale: item.product_motif_at_sale,
-                                unit_price: parseFloat(item.unit_price),
-                                quantity: parseInt(item.quantity),
-                                total_item_price: parseFloat(item.total_item_price)
-                            }));
-                            this.nextItemId = Math.max(...invoiceItems.map(item => item.id || 0)) + 1;
-                        } else { // START JS Else
-                            // Jika tidak ada item dari database (misal: invoice lama tanpa item)
-                            this.addItem(); // Tambah satu baris item kosong sebagai default
-                        } // END JS Else
-                        this.calculateTotal(); // Hitung total awal
-                        this.$watch('items', () => this.calculateTotal()); // Watch items array for changes
-                    }, // END init()
+                        this.$watch('items', () => this.calculateTotal());
+                    },
 
                     addItem() {
                         this.items.push({
-                            id: 'new-' + this.nextItemId++,
+                            id: this.nextItemId++,
                             product_id: '',
                             product_name_at_sale: '',
                             product_motif_at_sale: '',
@@ -358,8 +465,33 @@
                             maximumFractionDigits: 0
                         });
                     }
-                } // END return
-            } // END function invoiceForm
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                // Initialize Lucide icons
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+
+                // Animate cards on load
+                const animateCards = () => {
+                    const cards = document.querySelectorAll('.group.relative');
+                    cards.forEach((card, index) => {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(30px)';
+                        card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 150);
+                    });
+                };
+
+                // Start animations
+                setTimeout(animateCards, 200);
+            });
         </script>
-    @endpush {{-- END push scripts --}}
-</x-app-layout> {{-- END x-app-layout --}}
+    @endpush
+</x-app-layout>

@@ -2,63 +2,188 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Edit Transaksi') }}
-        </h2>
+        <div class="flex items-center justify-between w-full">
+            <div class="flex items-center space-x-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white leading-tight">
+                        Edit Transaksi
+                    </h2>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                        Perbarui informasi transaksi yang ada
+                    </p>
+                </div>
+            </div>
+        </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+    <div class="py-8">
+        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
+            {{-- Main Content Card --}}
+            <div class="group relative">
+                <div class="absolute inset-0 bg-slate-100 dark:bg-slate-800 rounded-2xl opacity-75 group-hover:opacity-100 blur-sm group-hover:blur-none transition-all duration-300"></div>
+                <div class="relative bg-white dark:bg-slate-900 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700">
+                    <form action="{{ route('transactions.update', $transaction->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
 
-                <form action="{{ route('transactions.update', $transaction->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
+                        {{-- Header Section --}}
+                        <div class="p-6 border-b border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
+                                    <i data-lucide="edit-3" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Edit Transaksi #{{ $transaction->id }}</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Perbarui informasi transaksi</p>
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="mb-4">
-                        <x-input-label for="transaction_date" :value="__('Tanggal Transaksi')" />
-                        <x-text-input id="transaction_date" class="block mt-1 w-full" type="date"
-                            name="transaction_date" :value="old('transaction_date', $transaction->transaction_date->format('Y-m-d'))" required />
-                        <x-input-error :messages="$errors->get('transaction_date')" class="mt-2" />
-                    </div>
+                        {{-- Form Section --}}
+                        <div class="p-6">
+                            {{-- Transaction Date --}}
+                            <div class="mb-6">
+                                <label for="transaction_date" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                    <div class="flex items-center space-x-2">
+                                        <i data-lucide="calendar" class="w-4 h-4 text-blue-500"></i>
+                                        <span>Tanggal Transaksi</span>
+                                    </div>
+                                </label>
+                                <input type="date" id="transaction_date" name="transaction_date" 
+                                    value="{{ old('transaction_date', $transaction->transaction_date->format('Y-m-d')) }}"
+                                    class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                    required>
+                                @error('transaction_date')
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                        <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
 
-                    <div class="mb-4">
-                        <x-input-label for="type" :value="__('Tipe Transaksi')" />
-                        <select id="type" name="type"
-                            class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
-                            required>
-                            <option value="kredit" {{ old('type', $transaction->type) == 'kredit' ? 'selected' : '' }}>
-                                Kredit (Pemasukan)</option>
-                            <option value="debit" {{ old('type', $transaction->type) == 'debit' ? 'selected' : '' }}>
-                                Debit (Pengeluaran)</option>
-                        </select>
-                        <x-input-error :messages="$errors->get('type')" class="mt-2" />
-                    </div>
+                            {{-- Transaction Type --}}
+                            <div class="mb-6">
+                                <label for="type" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                    <div class="flex items-center space-x-2">
+                                        <i data-lucide="activity" class="w-4 h-4 text-blue-500"></i>
+                                        <span>Tipe Transaksi</span>
+                                    </div>
+                                </label>
+                                <select id="type" name="type"
+                                    class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                    required>
+                                    <option value="kredit" {{ old('type', $transaction->type) == 'kredit' ? 'selected' : '' }}>
+                                        Kredit (Pemasukan)
+                                    </option>
+                                    <option value="debit" {{ old('type', $transaction->type) == 'debit' ? 'selected' : '' }}>
+                                        Debit (Pengeluaran)
+                                    </option>
+                                </select>
+                                @error('type')
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                        <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
 
-                    <div class="mb-4">
-                        <x-input-label for="amount" :value="__('Jumlah Nominal')" />
-                        <x-text-input id="amount" class="block mt-1 w-full" type="number" step="0.01"
-                            name="amount" :value="old('amount', $transaction->amount)" required min="0" />
-                        <x-input-error :messages="$errors->get('amount')" class="mt-2" />
-                    </div>
+                            {{-- Amount --}}
+                            <div class="mb-6">
+                                <label for="amount" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                    <div class="flex items-center space-x-2">
+                                        <i data-lucide="dollar-sign" class="w-4 h-4 text-blue-500"></i>
+                                        <span>Jumlah Nominal</span>
+                                    </div>
+                                </label>
+                                <input type="number" id="amount" name="amount" step="0.01"
+                                    value="{{ old('amount', $transaction->amount) }}"
+                                    class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                    placeholder="Masukkan jumlah nominal" required min="0">
+                                @error('amount')
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                        <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
 
-                    <div class="mb-4">
-                        <x-input-label for="description" :value="__('Deskripsi Transaksi')" />
-                        <x-textarea id="description" class="block mt-1 w-full" name="description"
-                            required>{{ old('description', $transaction->description) }}</x-textarea>
-                        <x-input-error :messages="$errors->get('description')" class="mt-2" />
-                    </div>
+                            {{-- Description --}}
+                            <div class="mb-6">
+                                <label for="description" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                    <div class="flex items-center space-x-2">
+                                        <i data-lucide="file-text" class="w-4 h-4 text-blue-500"></i>
+                                        <span>Deskripsi Transaksi</span>
+                                    </div>
+                                </label>
+                                <textarea id="description" name="description" rows="4"
+                                    class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+                                    placeholder="Jelaskan detail transaksi ini" required>{{ old('description', $transaction->description) }}</textarea>
+                                @error('description')
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                        <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
 
-                    <div class="flex items-center justify-end mt-4">
-                        <a href="{{ route('transactions.index') }}"
-                            class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 mr-4">Batal</a>
-                        <x-primary-button>
-                            {{ __('Perbarui Transaksi') }}
-                        </x-primary-button>
-                    </div>
-                </form>
-
+                            {{-- Action Buttons --}}
+                            <div class="flex items-center justify-between pt-6 border-t border-slate-200 dark:border-slate-700">
+                                <a href="{{ route('transactions.index') }}"
+                                   class="group flex items-center px-6 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200">
+                                    <i data-lucide="arrow-left" class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"></i>
+                                    Kembali ke Daftar
+                                </a>
+                                <button type="submit"
+                                        class="group flex items-center px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+                                    <i data-lucide="save" class="w-4 h-4 mr-2 group-hover:scale-110 transition-transform"></i>
+                                    Perbarui Transaksi
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Initialize Lucide icons
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+
+                // Animate cards on load
+                const animateCards = () => {
+                    const cards = document.querySelectorAll('.group.relative');
+                    cards.forEach((card, index) => {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(30px)';
+                        card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 150);
+                    });
+                };
+
+                // Start animations
+                setTimeout(animateCards, 200);
+
+                // Add form validation feedback
+                const inputs = document.querySelectorAll('input, textarea, select');
+                inputs.forEach(input => {
+                    input.addEventListener('focus', function() {
+                        this.parentElement.classList.add('ring-2', 'ring-blue-500');
+                    });
+                    
+                    input.addEventListener('blur', function() {
+                        this.parentElement.classList.remove('ring-2', 'ring-blue-500');
+                    });
+                });
+            });
+        </script>
+    @endpush
 </x-app-layout>
