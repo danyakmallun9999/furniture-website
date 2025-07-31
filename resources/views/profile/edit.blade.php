@@ -5,7 +5,7 @@
                 <div>
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white leading-tight">
                         Pengaturan Akun
-                    </h2>
+        </h2>
                     <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
                         Kelola informasi profil dan keamanan akun Anda
                     </p>
@@ -33,9 +33,9 @@
                 </div>
             </div>
             <div class="p-6">
-                @include('profile.partials.update-profile-information-form')
+                    @include('profile.partials.update-profile-information-form')
+                </div>
             </div>
-        </div>
 
         {{-- Password Update Card --}}
         <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl overflow-hidden">
@@ -55,9 +55,9 @@
                 </div>
             </div>
             <div class="p-6">
-                @include('profile.partials.update-password-form')
+                    @include('profile.partials.update-password-form')
+                </div>
             </div>
-        </div>
 
         {{-- Delete Account Card --}}
         <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl overflow-hidden">

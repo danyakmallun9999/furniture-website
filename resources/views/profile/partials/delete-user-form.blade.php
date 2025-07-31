@@ -12,7 +12,7 @@
                     <p class="text-sm text-red-700 dark:text-red-300 mt-1">
                         Setelah akun Anda dihapus, semua sumber daya dan datanya akan dihapus secara permanen. 
                         Sebelum menghapus akun Anda, harap unduh data atau informasi yang ingin Anda simpan.
-                    </p>
+        </p>
                 </div>
             </div>
         </div>

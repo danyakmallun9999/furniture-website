@@ -8,7 +8,7 @@
         @method('patch')
 
         <div class="space-y-4">
-            <div>
+        <div>
                 <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     Nama Lengkap
                 </label>
@@ -19,9 +19,9 @@
                 @error('name')
                     <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                 @enderror
-            </div>
+        </div>
 
-            <div>
+        <div>
                 <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     Alamat Email
                 </label>
@@ -33,7 +33,7 @@
                     <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                 @enderror
 
-                @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
+            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                     <div class="mt-4 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl">
                         <div class="flex items-start space-x-3">
                             <div class="w-5 h-5 bg-amber-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -48,17 +48,17 @@
                                     <button form="send-verification" 
                                         class="underline text-amber-600 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-200 font-medium">
                                         Klik di sini untuk mengirim ulang email verifikasi.
-                                    </button>
-                                </p>
-                                @if (session('status') === 'verification-link-sent')
+                        </button>
+                    </p>
+                    @if (session('status') === 'verification-link-sent')
                                     <p class="mt-2 text-sm text-green-600 dark:text-green-400 font-medium">
                                         Link verifikasi baru telah dikirim ke alamat email Anda.
-                                    </p>
-                                @endif
+                        </p>
+                    @endif
                             </div>
                         </div>
-                    </div>
-                @endif
+                </div>
+            @endif
             </div>
         </div>
 

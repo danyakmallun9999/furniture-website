@@ -72,29 +72,59 @@
             backdrop-filter: blur(4px);
             background: rgba(0, 0, 0, 0.3);
         }
+
+        /* Fix untuk proporsi yang simetris */
+        .main-container {
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .sidebar-container {
+            min-height: 100vh;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .content-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header-height {
+            height: 73px; /* Fixed header height */
+            min-height: 73px;
+            max-height: 73px;
+        }
+        
+        .main-content-height {
+            height: calc(100vh - 73px); /* Subtract header height */
+            overflow-y: auto;
+        }
     </style>
 </head>
 
-<body class="bg-slate-50 dark:bg-slate-900 min-h-screen">
+<body class="bg-slate-50 dark:bg-slate-900">
 
     {{-- Mobile Menu Backdrop --}}
     <div id="mobile-backdrop" class="fixed inset-0 z-40 lg:hidden mobile-backdrop hidden"></div>
 
-    {{-- Main Container --}}
-    <div class="flex h-screen overflow-hidden">
+    {{-- Main Container dengan height yang fixed --}}
+    <div class="flex main-container">
 
-        {{-- Sidebar --}}
+        {{-- Sidebar dengan proporsi yang tepat --}}
         <aside id="sidebar"
-            class="sidebar-transition fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-900 shadow-xl lg:static lg:translate-x-0 -translate-x-full">
+            class="sidebar-transition sidebar-container fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-900 shadow-xl lg:static lg:translate-x-0 -translate-x-full">
 
-            {{-- Sidebar Header --}}
-            <div class="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700">
+            {{-- Sidebar Header dengan height yang sama dengan navbar --}}
+            <div class="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700 header-height">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 bg-slate-700 dark:bg-slate-700 rounded-xl flex items-center justify-center">
                         <i data-lucide="layout-dashboard" class="w-6 h-6 text-white"></i>
                     </div>
                     <div>
-                        <h2 class="text-xl font-bold text-slate-800 dark:text-white">Admin Panel</h2>
+                        <h2 class="text-xl font-bold text-slate-800 dark:text-white">Admin </h2>
                         <p class="text-xs text-slate-500 dark:text-slate-400">Management System</p>
                     </div>
                 </div>
@@ -105,100 +135,102 @@
                 </button>
             </div>
 
-            {{-- Navigation Menu --}}
-            <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-                {{-- Dashboard --}}
-                <a href="{{ route('dashboard') }}"
-                    class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('dashboard') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
-                    <i data-lucide="home"
-                        class="w-5 h-5 mr-3 {{ request()->routeIs('dashboard') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
-                    Dashboard
-                </a>
+            {{-- Navigation Menu dengan flex-1 untuk mengisi ruang tersisa --}}
+            <div class="flex-1 flex flex-col">
+                <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+                    {{-- Dashboard --}}
+                    <a href="{{ route('dashboard') }}"
+                        class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('dashboard') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
+                        <i data-lucide="home"
+                            class="w-5 h-5 mr-3 {{ request()->routeIs('dashboard') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
+                        Dashboard
+                    </a>
 
-                {{-- Categories --}}
-                <a href="{{ route('categories.index') }}"
-                    class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('categories.*') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
-                    <i data-lucide="folder"
-                        class="w-5 h-5 mr-3 {{ request()->routeIs('categories.*') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
-                    Kategori Produk
-                </a>
+                    {{-- Categories --}}
+                    <a href="{{ route('categories.index') }}"
+                        class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('categories.*') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
+                        <i data-lucide="folder"
+                            class="w-5 h-5 mr-3 {{ request()->routeIs('categories.*') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
+                        Kategori Produk
+                    </a>
 
-                {{-- Products --}}
-                <a href="{{ route('products.index') }}"
-                    class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('products.*') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
-                    <i data-lucide="package"
-                        class="w-5 h-5 mr-3 {{ request()->routeIs('products.*') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
-                    Produk Mebel
-                </a>
+                    {{-- Products --}}
+                    <a href="{{ route('products.index') }}"
+                        class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('products.*') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
+                        <i data-lucide="package"
+                            class="w-5 h-5 mr-3 {{ request()->routeIs('products.*') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
+                        Produk Mebel
+                    </a>
 
-                {{-- Transactions --}}
-                <a href="{{ route('transactions.index') }}"
-                    class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('transactions.*') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
-                    <i data-lucide="credit-card"
-                        class="w-5 h-5 mr-3 {{ request()->routeIs('transactions.*') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
-                    Transaksi
-                </a>
+                    {{-- Transactions --}}
+                    <a href="{{ route('transactions.index') }}"
+                        class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('transactions.*') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
+                        <i data-lucide="credit-card"
+                            class="w-5 h-5 mr-3 {{ request()->routeIs('transactions.*') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
+                        Transaksi
+                    </a>
 
-                {{-- Financial Reports --}}
-                <a href="{{ route('reports.financial') }}"
-                    class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('reports.financial') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
-                    <i data-lucide="bar-chart-3"
-                        class="w-5 h-5 mr-3 {{ request()->routeIs('reports.financial') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
-                    Laporan Keuangan
-                </a>
+                    {{-- Financial Reports --}}
+                    <a href="{{ route('reports.financial') }}"
+                        class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('reports.financial') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
+                        <i data-lucide="bar-chart-3"
+                            class="w-5 h-5 mr-3 {{ request()->routeIs('reports.financial') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
+                        Laporan Keuangan
+                    </a>
 
-                {{-- Invoices --}}
-                <a href="{{ route('invoices.index') }}"
-                    class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('invoices.*') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
-                    <i data-lucide="file-text"
-                        class="w-5 h-5 mr-3 {{ request()->routeIs('invoices.*') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
-                    Manajemen Invoice
-                </a>
+                    {{-- Invoices --}}
+                    <a href="{{ route('invoices.index') }}"
+                        class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('invoices.*') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
+                        <i data-lucide="file-text"
+                            class="w-5 h-5 mr-3 {{ request()->routeIs('invoices.*') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
+                        Manajemen Invoice
+                    </a>
 
-                {{-- Divider --}}
-                <div class="border-t border-slate-200 dark:border-slate-700 my-4"></div>
+                    {{-- Divider --}}
+                    <div class="border-t border-slate-200 dark:border-slate-700 my-4"></div>
 
-                {{-- Settings --}}
-                <a href="{{ route('profile.edit') }}"
-                    class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('profile.*') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
-                    <i data-lucide="settings"
-                        class="w-5 h-5 mr-3 {{ request()->routeIs('profile.*') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
-                    Pengaturan Akun
-                </a>
-            </nav>
+                    {{-- Settings --}}
+                    <a href="{{ route('profile.edit') }}"
+                        class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('profile.*') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
+                        <i data-lucide="settings"
+                            class="w-5 h-5 mr-3 {{ request()->routeIs('profile.*') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
+                        Pengaturan Akun
+                    </a>
+                </nav>
 
-            {{-- User Profile Section --}}
-            <div class="p-4 border-t border-slate-200 dark:border-slate-700">
-                <div class="flex items-center space-x-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800">
-                    <div class="w-8 h-8 bg-slate-700 dark:bg-slate-700 rounded-full flex items-center justify-center">
-                        <i data-lucide="user" class="w-4 h-4 text-white"></i>
+                {{-- User Profile Section - diletakkan di bottom --}}
+                <div class="p-4 border-t border-slate-200 dark:border-slate-700 mt-auto">
+                    <div class="flex items-center space-x-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800">
+                        <div class="w-8 h-8 bg-slate-700 dark:bg-slate-700 rounded-full flex items-center justify-center">
+                            <i data-lucide="user" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-slate-900 dark:text-white truncate">
+                                {{ Auth::user()->name ?? 'Admin User' }}
+                            </p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 truncate">
+                                {{ Auth::user()->email ?? 'admin@example.com' }}
+                            </p>
+                        </div>
+                        {{-- Logout Button --}}
+                        <form method="POST" action="{{ route('logout') }}" class="inline">
+                            @csrf
+                            <button type="submit"
+                                class="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                                <i data-lucide="log-out" class="w-4 h-4 text-slate-500 dark:text-slate-400"></i>
+                            </button>
+                        </form>
                     </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-slate-900 dark:text-white truncate">
-                            {{ Auth::user()->name ?? 'Admin User' }}
-                        </p>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 truncate">
-                            {{ Auth::user()->email ?? 'admin@example.com' }}
-                        </p>
-                    </div>
-                    {{-- Logout Button --}}
-                    <form method="POST" action="{{ route('logout') }}" class="inline">
-                        @csrf
-                        <button type="submit"
-                            class="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-                            <i data-lucide="log-out" class="w-4 h-4 text-slate-500 dark:text-slate-400"></i>
-                        </button>
-                    </form>
                 </div>
             </div>
         </aside>
 
-        {{-- Main Content Area --}}
-        <div class="flex-1 flex flex-col overflow-hidden">
+        {{-- Main Content Area dengan proporsi yang tepat --}}
+        <div class="flex-1 content-container lg:ml-0">
 
-            {{-- Top Navigation --}}
-            <header class="bg-white dark:bg-slate-900 shadow-sm border-b border-slate-200 dark:border-slate-700">
-                <div class="flex items-center justify-between px-6 py-4">
+            {{-- Top Navigation dengan height yang fixed --}}
+            <header class="bg-white dark:bg-slate-900 shadow-sm border-b border-slate-200 dark:border-slate-700 header-height">
+                <div class="flex items-center justify-between px-6 h-full">
                     <div class="flex items-center space-x-4">
                         {{-- Mobile Menu Button --}}
                         <button id="mobile-menu-button"
@@ -221,9 +253,9 @@
                 </div>
             </header>
 
-            {{-- Main Content --}}
-            <main class="flex-1 overflow-y-auto bg-slate-50 dark:bg-slate-800 p-6">
-                <div class="max-w-7xl mx-auto">
+            {{-- Main Content dengan height yang calculated --}}
+            <main class="main-content-height bg-slate-50 dark:bg-slate-800 p-6">
+                <div class="max-w-7xl mx-auto h-full">
                     {{ $slot }}
                 </div>
             </main>
@@ -257,8 +289,6 @@
             mobileMenuButton?.addEventListener('click', openMobileMenu);
             closeSidebar?.addEventListener('click', closeMobileMenu);
             mobileBackdrop?.addEventListener('click', closeMobileMenu);
-
-            // Theme management removed
 
             // Close mobile menu on escape key
             document.addEventListener('keydown', (e) => {

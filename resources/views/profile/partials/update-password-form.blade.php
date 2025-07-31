@@ -4,7 +4,7 @@
         @method('put')
 
         <div class="space-y-4">
-            <div>
+        <div>
                 <label for="current_password" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     Password Saat Ini
                 </label>
@@ -15,9 +15,9 @@
                 @error('current_password')
                     <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                 @enderror
-            </div>
+        </div>
 
-            <div>
+        <div>
                 <label for="password" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     Password Baru
                 </label>
@@ -28,9 +28,9 @@
                 @error('password')
                     <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                 @enderror
-            </div>
+        </div>
 
-            <div>
+        <div>
                 <label for="password_confirmation" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     Konfirmasi Password Baru
                 </label>
