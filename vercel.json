@@ -9,7 +9,7 @@
     "routes": [
         {
             "src": "/build/(.*)",
-            "dest": "/public/build/"
+            "dest": "/public/build/$1"
         },
         {
             "src": "/(.*)",
@@ -17,7 +17,7 @@
         }
     ],
     "public": true,
-    "buildCommand": "vite build",
+    "buildCommand": "composer install --optimize-autoloader --no-dev && php artisan config:cache && php artisan route:cache && vite build",
     "outputDirectory": "public",
     "env": {
         "APP_ENV": "production",
