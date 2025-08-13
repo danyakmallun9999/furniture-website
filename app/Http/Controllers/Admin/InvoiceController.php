@@ -315,6 +315,6 @@ class InvoiceController extends Controller
         // $pdf->setPaper('A4', 'portrait');
 
         // Unduh file PDF
-        return $pdf->download('invoice-' . $invoice->invoice_number . '.pdf');
+        return $pdf->download('transaksi-' . $invoice->invoice_number . '.pdf');
     }
 }

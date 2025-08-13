@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel; // Impor Facade Excel
 use App\Exports\InvoicesExport; // Export untuk invoices
 use Illuminate\Validation\ValidationException; // Untuk menangkap error validasi impor
+use App\Imports\InvoicesImport; // Import untuk invoices
 
 class FinancialReportController extends Controller
 {
@@ -44,30 +45,18 @@ class FinancialReportController extends Controller
             })
             ->paginate(15);
 
-        // Hitung total untuk summary cards di laporan
-        $totalPemasukan = Invoice::when($type, function ($query, $type) {
-                                    return $query->where('type', $type);
-                                })
-                                ->when($startDate, function ($query, $startDate) {
-                                    return $query->whereDate('invoice_date', '>=', $startDate);
-                                })
-                                ->when($endDate, function ($query, $endDate) {
-                                    return $query->whereDate('invoice_date', '<=', $endDate);
-                                })
-                                ->where('type', 'kredit')
-                                ->sum('total_amount');
+        // Hitung total untuk summary
+        $totalPemasukan = Invoice::when($type, fn($q, $t) => $q->where('type', $t))
+            ->when($startDate, fn($q, $d) => $q->whereDate('invoice_date', '>=', $d))
+            ->when($endDate, fn($q, $d) => $q->whereDate('invoice_date', '<=', $d))
+            ->where('type', 'kredit')
+            ->sum('total_amount');
 
-        $totalPengeluaran = Invoice::when($type, function ($query, $type) {
-                                    return $query->where('type', $type);
-                                })
-                                ->when($startDate, function ($query, $startDate) {
-                                    return $query->whereDate('invoice_date', '>=', $startDate);
-                                })
-                                ->when($endDate, function ($query, $endDate) {
-                                    return $query->whereDate('invoice_date', '<=', $endDate);
-                                })
-                                ->where('type', 'debit')
-                                ->sum('total_amount');
+        $totalPengeluaran = Invoice::when($type, fn($q, $t) => $q->where('type', $t))
+            ->when($startDate, fn($q, $d) => $q->whereDate('invoice_date', '>=', $d))
+            ->when($endDate, fn($q, $d) => $q->whereDate('invoice_date', '<=', $d))
+            ->where('type', 'debit')
+            ->sum('total_amount');
 
         $labaRugiBersih = $totalPemasukan - $totalPengeluaran;
 
@@ -78,11 +67,11 @@ class FinancialReportController extends Controller
     }
 
     /**
-     * Export invoices to Excel.
+     * Export invoices to Excel or PDF (format param: excel|pdf).
      */
     public function export(Request $request)
     {
-        // Opsional: terapkan filter yang sama saat export
+        $format = $request->input('format', 'excel');
         $type = $request->input('type');
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
@@ -104,7 +93,14 @@ class FinancialReportController extends Controller
             })
             ->get();
 
-        return Excel::download(new InvoicesExport($invoices), 'laporan_invoice.xlsx');
+        if ($format === 'pdf') {
+            $html = view('admin.reports.partials.financial_export_pdf', compact('invoices', 'type', 'startDate', 'endDate', 'search'))->render();
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML($html);
+            return $pdf->download('laporan_transaksi.pdf');
+        }
+
+        return Excel::download(new InvoicesExport($invoices), 'laporan_transaksi.xlsx');
     }
 
     /**
@@ -112,22 +108,20 @@ class FinancialReportController extends Controller
      */
     public function showImportForm()
     {
-        return view('admin.reports.import'); // View untuk form import (tetap)
+        return view('admin.reports.import');
     }
 
     /**
-     * Import transactions from Excel.
+     * Import invoices from Excel.
      */
     public function import(Request $request)
     {
-        // Tetap: import transaksi jika masih dibutuhkan; dapat diubah ke invoice import di masa depan
         $request->validate([
-            'file' => 'required|mimes:xlsx,xls,csv|max:2048', // Hanya boleh Excel/CSV, max 2MB
+            'file' => 'required|mimes:xlsx,xls,csv|max:4096',
         ]);
 
         try {
-            // Placeholder: tidak ada import invoice saat ini
-            return redirect()->back()->with('error', 'Fitur impor untuk invoice belum tersedia.');
+            Excel::import(new InvoicesImport, $request->file('file'));
         } catch (ValidationException $e) {
             $failures = $e->failures();
             $errors = [];
@@ -138,5 +132,7 @@ class FinancialReportController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal mengimpor file: ' . $e->getMessage());
         }
+
+        return redirect()->route('reports.financial')->with('success', 'Data transaksi berhasil diimpor!');
     }
 }

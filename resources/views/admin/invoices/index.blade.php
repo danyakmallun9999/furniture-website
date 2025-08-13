@@ -6,10 +6,10 @@
             <div class="flex items-center space-x-4">
                 <div>
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white leading-tight">
-                        Manajemen Invoice
+                        Manajemen Transaksi
                     </h2>
                     <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                        Kelola semua invoice dan pembayaran pelanggan
+                        Kelola semua transaksi dan pembayaran pelanggan
                     </p>
                 </div>
             </div>
@@ -45,14 +45,14 @@
                                     <i data-lucide="file-text" class="w-5 h-5 text-white"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Daftar Invoice</h3>
-                                    <p class="text-sm text-slate-600 dark:text-slate-400">Kelola semua invoice pelanggan</p>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Daftar Transaksi</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Kelola semua transaksi pelanggan</p>
                                 </div>
                             </div>
                             <a href="{{ route('invoices.create') }}"
                                 class="group flex items-center px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
                                 <i data-lucide="plus-circle" class="w-4 h-4 mr-2 group-hover:scale-110 transition-transform"></i>
-                                Buat Invoice Baru
+                                Buat Transaksi Baru
                             </a>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                                     <label for="type_filter" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                         <div class="flex items-center space-x-2">
                                             <i data-lucide="activity" class="w-4 h-4 text-blue-500"></i>
-                                            <span>Tipe Invoice</span>
+                                            <span>Tipe Transaksi</span>
                                         </div>
                                     </label>
                                     <select id="type_filter" name="type"
@@ -113,7 +113,7 @@
                                     </label>
                                     <input type="text" id="search" name="search"
                                         value="{{ request('search') }}"
-                                        placeholder="Cari nomor/nama/jumlah..."
+                                        placeholder="Cari nomor transaksi/nama/jumlah..."
                                         class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
                                 </div>
                             </div>
@@ -143,7 +143,7 @@
                                         <th class="text-left py-3 px-4 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                                             <div class="flex items-center space-x-2">
                                                 <i data-lucide="hash" class="w-4 h-4"></i>
-                                                <span>No Invoice</span>
+                                                <span>No Transaksi</span>
                                             </div>
                                         </th>
                                         <th class="text-left py-3 px-4 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
@@ -300,13 +300,13 @@
                                                         <i data-lucide="file-x" class="w-8 h-8 text-slate-400"></i>
                                                     </div>
                                                     <div>
-                                                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Tidak ada invoice</h3>
-                                                        <p class="text-slate-600 dark:text-slate-400">Mulai dengan membuat invoice pertama Anda</p>
+                                                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Tidak ada transaksi</h3>
+                                                        <p class="text-slate-600 dark:text-slate-400">Mulai dengan membuat transaksi pertama Anda</p>
                                                     </div>
                                                     <a href="{{ route('invoices.create') }}"
                                                         class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-medium rounded-lg transition-all duration-200">
                                                         <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
-                                                        Buat Invoice Pertama
+                                                        Buat Transaksi Pertama
                                                     </a>
                                                 </div>
                                             </td>

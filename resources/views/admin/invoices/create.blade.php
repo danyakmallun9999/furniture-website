@@ -6,10 +6,10 @@
             <div class="flex items-center space-x-4">
                 <div>
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white leading-tight">
-                        Buat Invoice Baru
+                        Buat Transaksi Baru
                     </h2>
                     <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                        Buat invoice baru untuk pelanggan
+                        Buat transaksi baru untuk pelanggan
                     </p>
                 </div>
             </div>
@@ -68,8 +68,8 @@
                                     <i data-lucide="plus-circle" class="w-5 h-5 text-white"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Form Invoice Baru</h3>
-                                    <p class="text-sm text-slate-600 dark:text-slate-400">Isi informasi invoice di bawah ini</p>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Form Transaksi Baru</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Isi informasi transaksi di bawah ini</p>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                         <div class="p-6 border-b border-slate-200 dark:border-slate-700">
                             <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center">
                                 <i data-lucide="file-text" class="w-5 h-5 mr-2 text-blue-500"></i>
-                                Detail Invoice
+                                Detail Transaksi
                             </h4>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {{-- Customer Selection --}}
@@ -146,7 +146,7 @@
                                     <label for="invoice_number" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                         <div class="flex items-center space-x-2">
                                             <i data-lucide="hash" class="w-4 h-4 text-blue-500"></i>
-                                            <span>Nomor Invoice</span>
+                                            <span>Nomor Transaksi</span>
                                         </div>
                                     </label>
                                     <input type="text" id="invoice_number" name="invoice_number"
@@ -166,7 +166,7 @@
                                     <label for="invoice_date" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                         <div class="flex items-center space-x-2">
                                             <i data-lucide="calendar" class="w-4 h-4 text-blue-500"></i>
-                                            <span>Tanggal Invoice</span>
+                                            <span>Tanggal Transaksi</span>
                                         </div>
                                     </label>
                                     <input type="date" id="invoice_date" name="invoice_date"
@@ -289,7 +289,7 @@
                             <div class="flex items-center justify-between mb-6">
                                 <h4 class="text-lg font-semibold text-slate-900 dark:text-white flex items-center">
                                     <i data-lucide="package" class="w-5 h-5 mr-2 text-blue-500"></i>
-                                    Item Invoice
+                                    Item Transaksi
                                 </h4>
                                 <button type="button" @click="addItem()"
                                     class="group flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
@@ -406,12 +406,12 @@
                             <a href="{{ route('invoices.index') }}"
                                class="group flex items-center px-6 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200">
                                 <i data-lucide="arrow-left" class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"></i>
-                                Kembali ke Daftar
+                                Kembali ke Daftar Transaksi
                             </a>
                             <button type="submit"
                                     class="group flex items-center px-8 py-3 bg-gradient-to-r from-emerald-500 to-cyan-600 hover:from-emerald-600 hover:to-cyan-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
                                 <i data-lucide="save" class="w-4 h-4 mr-2 group-hover:scale-110 transition-transform"></i>
-                                Simpan Invoice
+                                Simpan Transaksi
                             </button>
                         </div>
                     </form>

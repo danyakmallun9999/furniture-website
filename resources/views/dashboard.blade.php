@@ -10,6 +10,7 @@
                     </h2>
                 </div>
             </div>
+            {{-- filter form moved below chart card --}}
         </div>
     </x-slot>
 
@@ -119,29 +120,60 @@
     {{-- Main Content Grid --}}
     <div class="grid grid-cols-1 xl:grid-cols-4 gap-8">
         {{-- Chart Section --}}
-        <div class="xl:col-span-3 space-y-8">
-            {{-- Monthly Transaction Chart --}}
+        <div class="xl:col-span-3 space-y-6">
+            {{-- Filter controls (card) --}}
+            <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700">
+                <div class="p-6">
+                    <form method="GET" action="{{ route('dashboard') }}" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        {{-- Granularity --}}
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Granularitas</label>
+                            <div class="relative">
+                                <select name="granularity" class="appearance-none w-full text-sm border border-slate-200 dark:border-slate-600 rounded-xl px-3 pr-10 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                                    <option value="month" {{ ($granularity ?? 'month') === 'month' ? 'selected' : '' }}>Bulanan</option>
+                                    <option value="quarter" {{ ($granularity ?? 'month') === 'quarter' ? 'selected' : '' }}>Kuartal</option>
+                                    <option value="year" {{ ($granularity ?? 'month') === 'year' ? 'selected' : '' }}>Tahunan</option>
+                                </select>
+                                <i data-lucide="chevron-down" class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+                            </div>
+                        </div>
+                        {{-- Year --}}
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Tahun</label>
+                            <div class="relative">
+                                <select name="year" class="appearance-none w-full text-sm border border-slate-200 dark:border-slate-600 rounded-xl px-3 pr-10 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                                    @for ($y = now()->year; $y >= now()->year - 9; $y--)
+                                        <option value="{{ $y }}" {{ ($selectedYear ?? now()->year) == $y ? 'selected' : '' }}>{{ $y }}</option>
+                                    @endfor
+                                </select>
+                                <i data-lucide="chevron-down" class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+                            </div>
+                        </div>
+                        {{-- Apply --}}
+                        <div class="flex items-end">
+                            <button type="submit" class="w-full sm:w-auto px-4 py-2 text-sm rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300">Terapkan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            {{-- Transaction Chart Card --}}
             <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl overflow-hidden">
                 <div class="p-6 border-b border-slate-200 dark:border-slate-700">
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center">
                                 <i data-lucide="bar-chart-3" class="w-5 h-5 mr-2 text-indigo-600"></i>
-                                Grafik Transaksi Bulanan
+                                Grafik Transaksi ({{ strtoupper($granularity ?? 'month') }}) - {{ $selectedYear ?? now()->year }}
                             </h3>
                             <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                                Perbandingan pemasukan dan pengeluaran tahun ini
+                                Perbandingan pemasukan dan pengeluaran
                             </p>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <select
-                                class="text-sm border border-slate-200 dark:border-slate-600 rounded-xl px-4 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                                <option>{{ now()->format('Y') }}</option>
-                                <option>{{ now()->subYear()->format('Y') }}</option>
-                                <option>{{ now()->subYears(2)->format('Y') }}</option>
-                            </select>
-                            <button
-                                class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                            <button id="downloadChart"
+                                class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                                title="Unduh grafik">
                                 <i data-lucide="download" class="w-4 h-4 text-slate-600 dark:text-slate-400"></i>
                             </button>
                         </div>
@@ -175,8 +207,8 @@
                         <div class="flex-1">
                             <p
                                 class="font-semibold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400">
-                                Invoice Baru</p>
-                            <p class="text-xs text-slate-600 dark:text-slate-400">Buat invoice penjualan</p>
+                                Transaksi Baru</p>
+                            <p class="text-xs text-slate-600 dark:text-slate-400">Buat Transaksi penjualan</p>
                         </div>
                         <i data-lucide="arrow-right"
                             class="w-4 h-4 text-slate-400 group-hover:text-emerald-600 group-hover:translate-x-1 transition-all"></i>
@@ -223,7 +255,7 @@
                         <div class="flex-1">
                             <p
                                 class="font-semibold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400">
-                                Kelola Invoice</p>
+                                Kelola Transaksi</p>
                             <p class="text-xs text-slate-600 dark:text-slate-400">Buat & kelola invoice</p>
                         </div>
                         <i data-lucide="arrow-right"
@@ -346,7 +378,7 @@
                             borderRadius: 12,
                             borderSkipped: false,
                             barThickness: 'flex',
-                            maxBarThickness: 50,
+                            maxBarThickness: 60,
                         }, {
                             label: 'Pengeluaran',
                             data: monthlyExpenseData,
@@ -356,7 +388,7 @@
                             borderRadius: 12,
                             borderSkipped: false,
                             barThickness: 'flex',
-                            maxBarThickness: 50,
+                            maxBarThickness: 60,
                         }]
                     },
                     options: {
@@ -513,6 +545,14 @@
                             card.style.transform = 'scale(1)';
                         }, 150);
                     }
+                });
+
+                // Download chart as PNG
+                document.getElementById('downloadChart')?.addEventListener('click', function() {
+                    const link = document.createElement('a');
+                    link.download = `grafik-transaksi-{{ $granularity ?? 'month' }}-{{ $selectedYear ?? now()->year }}.png`;
+                    link.href = chart.toBase64Image('image/png', 1.0);
+                    link.click();
                 });
             });
         </script>

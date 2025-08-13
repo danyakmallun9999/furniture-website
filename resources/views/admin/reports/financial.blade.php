@@ -160,15 +160,28 @@
                                 </div>
                                 <div>
                                     <h3 class="text-lg font-bold text-slate-900 dark:text-white">Laporan Keuangan</h3>
-                                    <p class="text-sm text-slate-600 dark:text-slate-400">Analisis dari data invoice</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Analisis dari data transaksi</p>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-3">
-                                <a href="{{ route('reports.financial.export', request()->all()) }}"
-                                    class="group flex items-center px-4 py-2 bg-gradient-to-r from-emerald-500 to-cyan-600 hover:from-emerald-600 hover:to-cyan-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
-                                    <i data-lucide="download" class="w-4 h-4 mr-2 group-hover:scale-110 transition-transform"></i>
-                                    Ekspor Excel
-                                </a>
+                                <form action="{{ route('reports.financial.export') }}" method="GET" class="flex items-center space-x-2">
+                                    <input type="hidden" name="type" value="{{ request('type') }}">
+                                    <input type="hidden" name="start_date" value="{{ request('start_date') }}">
+                                    <input type="hidden" name="end_date" value="{{ request('end_date') }}">
+                                    <input type="hidden" name="search" value="{{ request('search') }}">
+                                    <div class="relative">
+                                        <select name="format" class="appearance-none text-sm border border-slate-200 dark:border-slate-600 rounded-xl px-3 pr-10 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                                            <option value="excel">Excel (.xlsx)</option>
+                                            <option value="pdf">PDF (.pdf)</option>
+                                        </select>
+                                        <i data-lucide="chevron-down" class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+                                    </div>
+                                    <button type="submit"
+                                        class="group flex items-center px-4 py-2 bg-gradient-to-r from-emerald-500 to-cyan-600 hover:from-emerald-600 hover:to-cyan-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+                                        <i data-lucide="download" class="w-4 h-4 mr-2 group-hover:scale-110 transition-transform"></i>
+                                        Unduh
+                                    </button>
+                                </form>
                                 <a href="{{ route('reports.financial.import') }}"
                                     class="group flex items-center px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
                                     <i data-lucide="upload" class="w-4 h-4 mr-2 group-hover:scale-110 transition-transform"></i>
@@ -182,12 +195,12 @@
                     <div class="p-6 border-b border-slate-200 dark:border-slate-700">
                         <form action="{{ route('reports.financial') }}" method="GET">
                             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                                {{-- Tipe Transaksi --}}
+                                {{-- Tipe --}}
                                 <div>
                                     <label for="type_filter" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                         <div class="flex items-center space-x-2">
                                             <i data-lucide="activity" class="w-4 h-4 text-blue-500"></i>
-                                            <span>Tipe Invoice</span>
+                                            <span>Tipe Transaksi</span>
                                         </div>
                                     </label>
                                     <select id="type_filter" name="type"
@@ -203,7 +216,7 @@
                                     <label for="start_date" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                         <div class="flex items-center space-x-2">
                                             <i data-lucide="calendar" class="w-4 h-4 text-blue-500"></i>
-                                            <span>Dari Tanggal Invoice</span>
+                                            <span>Dari Tanggal Transaksi</span>
                                         </div>
                                     </label>
                                     <input type="date" id="start_date" name="start_date"
@@ -216,7 +229,7 @@
                                     <label for="end_date" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                         <div class="flex items-center space-x-2">
                                             <i data-lucide="calendar" class="w-4 h-4 text-blue-500"></i>
-                                            <span>Sampai Tanggal Invoice</span>
+                                            <span>Sampai Tanggal Transaksi</span>
                                         </div>
                                     </label>
                                     <input type="date" id="end_date" name="end_date"
@@ -229,7 +242,7 @@
                                     <label for="search" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                         <div class="flex items-center space-x-2">
                                             <i data-lucide="search" class="w-4 h-4 text-blue-500"></i>
-                                            <span>Cari Nomor Invoice</span>
+                                            <span>Cari Nomor Transaksi</span>
                                         </div>
                                     </label>
                                     <input type="text" id="search" name="search"

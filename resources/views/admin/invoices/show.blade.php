@@ -6,10 +6,10 @@
             <div class="flex items-center space-x-4">
                 <div>
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white leading-tight">
-                        Detail Invoice - {{ $invoice->invoice_number }}
+                        Detail Transaksi - {{ $invoice->invoice_number }}
                     </h2>
                     <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
-                        Lihat detail lengkap invoice dan item-itemnya
+                        Lihat detail lengkap transaksi dan item-itemnya
                     </p>
                 </div>
             </div>
@@ -30,8 +30,8 @@
                                     <i data-lucide="file-text" class="w-5 h-5 text-white"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Invoice #{{ $invoice->invoice_number }}</h3>
-                                    <p class="text-sm text-slate-600 dark:text-slate-400">Detail lengkap invoice pelanggan</p>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Transaksi #{{ $invoice->invoice_number }}</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Detail lengkap transaksi pelanggan</p>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-3">
@@ -63,11 +63,11 @@
                                 <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4">
                                     <h4 class="font-semibold text-slate-900 dark:text-white mb-3 flex items-center">
                                         <i data-lucide="calendar" class="w-4 h-4 mr-2 text-blue-500"></i>
-                                        Informasi Invoice
+                                        Informasi Transaksi
                                     </h4>
                                     <div class="space-y-2">
                                         <div class="flex justify-between">
-                                            <span class="text-slate-600 dark:text-slate-400">Tanggal Invoice:</span>
+                                            <span class="text-slate-600 dark:text-slate-400">Tanggal Transaksi:</span>
                                             <span class="font-medium text-slate-900 dark:text-white">{{ $invoice->invoice_date->format('d M Y') }}</span>
                                         </div>
                                         <div class="flex justify-between">
@@ -140,7 +140,7 @@
                                 <div class="bg-gradient-to-r from-emerald-500 to-cyan-600 rounded-xl p-4 text-white">
                                     <h4 class="font-semibold mb-3 flex items-center">
                                         <i data-lucide="dollar-sign" class="w-4 h-4 mr-2"></i>
-                                        Total Invoice
+                                        Total Transaksi
                                     </h4>
                                     <div class="text-3xl font-bold">
                                         Rp {{ number_format($invoice->total_amount, 0, ',', '.') }}

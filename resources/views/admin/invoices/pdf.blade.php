@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Invoice #{{ $invoice->invoice_number }}</title>
+    <title>Transaksi #{{ $invoice->invoice_number }}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style>
         /* CSS inline atau tertanam untuk PDF */
@@ -127,7 +127,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>INVOICE</h1>
+            <h1>TRANSAKSI</h1>
             <p>{{ config('app.name', 'Furniture Website') }}</p>
             <p>Jl. Industri Mebel No. 123, Kota Kayu, Indonesia</p>
             <p>Email: info@furnituresite.com | Telp: +62 812 3456 7890</p>
@@ -135,11 +135,11 @@
 
         <table class="invoice-details">
             <tr>
-                <td>Nomor Invoice:</td>
+                <td>Nomor Transaksi:</td>
                 <td>{{ $invoice->invoice_number }}</td>
             </tr>
             <tr>
-                <td>Tanggal Invoice:</td>
+                <td>Tanggal Transaksi:</td>
                 <td>{{ $invoice->invoice_date->format('d M Y') }}</td>
             </tr>
             <tr>
@@ -147,7 +147,7 @@
                 <td>{{ $invoice->due_date ? $invoice->due_date->format('d M Y') : '-' }}</td>
             </tr>
             <tr>
-                <td>Tipe Invoice:</td>
+                <td>Tipe Transaksi:</td>
                 <td>{{ ucfirst($invoice->type) }}</td>
             </tr>
             <tr>

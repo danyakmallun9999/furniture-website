@@ -162,14 +162,6 @@
                         Produk Mebel
                     </a>
 
-                    {{-- Transactions --}}
-                    <a href="{{ route('transactions.index') }}"
-                        class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('transactions.*') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
-                        <i data-lucide="credit-card"
-                            class="w-5 h-5 mr-3 {{ request()->routeIs('transactions.*') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
-                        Transaksi
-                    </a>
-
                     {{-- Financial Reports --}}
                     <a href="{{ route('reports.financial') }}"
                         class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('reports.financial') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
@@ -183,7 +175,7 @@
                         class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('invoices.*') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
                         <i data-lucide="file-text"
                             class="w-5 h-5 mr-3 {{ request()->routeIs('invoices.*') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
-                        Manajemen Invoice
+                        Manajemen Transaksi
                     </a>
 
                     {{-- Divider --}}
