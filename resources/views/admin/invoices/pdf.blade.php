@@ -147,6 +147,10 @@
                 <td>{{ $invoice->due_date ? $invoice->due_date->format('d M Y') : '-' }}</td>
             </tr>
             <tr>
+                <td>Tipe Invoice:</td>
+                <td>{{ ucfirst($invoice->type) }}</td>
+            </tr>
+            <tr>
                 <td>Status Pembayaran:</td>
                 <td>
                     <span class="status-badge {{ $invoice->payment_status }}">

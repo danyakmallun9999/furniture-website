@@ -199,6 +199,28 @@
                                     @enderror
                                 </div>
 
+                                {{-- Type --}}
+                                <div>
+                                    <label for="type" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <i data-lucide="activity" class="w-4 h-4 text-blue-500"></i>
+                                            <span>Tipe Invoice</span>
+                                        </div>
+                                    </label>
+                                    <select id="type" name="type"
+                                        class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                        required>
+                                        <option value="kredit" {{ old('type') == 'kredit' ? 'selected' : '' }}>Kredit (Pemasukan)</option>
+                                        <option value="debit" {{ old('type') == 'debit' ? 'selected' : '' }}>Debit (Pengeluaran)</option>
+                                    </select>
+                                    @error('type')
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                            <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+
                                 {{-- Payment Status --}}
                                 <div>
                                     <label for="payment_status" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">

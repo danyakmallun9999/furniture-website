@@ -15,6 +15,7 @@ class Invoice extends Model
         'invoice_number',
         'invoice_date',
         'due_date',
+        'type',
         'total_amount',
         'payment_status',
         'notes',

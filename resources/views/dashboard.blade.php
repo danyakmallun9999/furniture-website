@@ -166,7 +166,7 @@
                 </div>
 
                 <div class="space-y-3">
-                    <a href="{{ route('transactions.create') }}"
+                    <a href="{{ route('invoices.create') }}"
                         class="group flex items-center p-4 rounded-xl bg-white dark:bg-slate-900 border border-emerald-100 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all duration-200">
                         <div
                             class="w-10 h-10 bg-gradient-to-r from-emerald-500 to-cyan-600 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
@@ -175,8 +175,8 @@
                         <div class="flex-1">
                             <p
                                 class="font-semibold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400">
-                                Transaksi Baru</p>
-                            <p class="text-xs text-slate-600 dark:text-slate-400">Buat transaksi penjualan</p>
+                                Invoice Baru</p>
+                            <p class="text-xs text-slate-600 dark:text-slate-400">Buat invoice penjualan</p>
                         </div>
                         <i data-lucide="arrow-right"
                             class="w-4 h-4 text-slate-400 group-hover:text-emerald-600 group-hover:translate-x-1 transition-all"></i>

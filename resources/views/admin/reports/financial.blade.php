@@ -160,7 +160,7 @@
                                 </div>
                                 <div>
                                     <h3 class="text-lg font-bold text-slate-900 dark:text-white">Laporan Keuangan</h3>
-                                    <p class="text-sm text-slate-600 dark:text-slate-400">Analisis transaksi keuangan</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Analisis dari data invoice</p>
                                 </div>
                             </div>
                             <div class="flex items-center space-x-3">
@@ -187,7 +187,7 @@
                                     <label for="type_filter" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                         <div class="flex items-center space-x-2">
                                             <i data-lucide="activity" class="w-4 h-4 text-blue-500"></i>
-                                            <span>Tipe Transaksi</span>
+                                            <span>Tipe Invoice</span>
                                         </div>
                                     </label>
                                     <select id="type_filter" name="type"
@@ -203,7 +203,7 @@
                                     <label for="start_date" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                         <div class="flex items-center space-x-2">
                                             <i data-lucide="calendar" class="w-4 h-4 text-blue-500"></i>
-                                            <span>Dari Tanggal</span>
+                                            <span>Dari Tanggal Invoice</span>
                                         </div>
                                     </label>
                                     <input type="date" id="start_date" name="start_date"
@@ -216,7 +216,7 @@
                                     <label for="end_date" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                         <div class="flex items-center space-x-2">
                                             <i data-lucide="calendar" class="w-4 h-4 text-blue-500"></i>
-                                            <span>Sampai Tanggal</span>
+                                            <span>Sampai Tanggal Invoice</span>
                                         </div>
                                     </label>
                                     <input type="date" id="end_date" name="end_date"
@@ -229,12 +229,12 @@
                                     <label for="search" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                         <div class="flex items-center space-x-2">
                                             <i data-lucide="search" class="w-4 h-4 text-blue-500"></i>
-                                            <span>Cari</span>
+                                            <span>Cari Nomor Invoice</span>
                                         </div>
                                     </label>
                                     <input type="text" id="search" name="search"
                                         value="{{ request('search') }}"
-                                        placeholder="Cari deskripsi/jumlah..."
+                                        placeholder="Cari nomor invoice..."
                                         class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
                                 </div>
                             </div>
@@ -264,7 +264,7 @@
                                         <th class="text-left py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                                             <div class="flex items-center space-x-2">
                                                 <i data-lucide="calendar" class="w-4 h-4"></i>
-                                                <span>Tanggal</span>
+                                                <span>Tanggal Invoice</span>
                                             </div>
                                         </th>
                                         <th class="text-left py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
@@ -276,65 +276,76 @@
                                         <th class="text-right py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                                             <div class="flex items-center justify-end space-x-2">
                                                 <i data-lucide="dollar-sign" class="w-4 h-4"></i>
-                                                <span>Jumlah</span>
+                                                <span>Total</span>
                                             </div>
                                         </th>
                                         <th class="text-left py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                                             <div class="flex items-center space-x-2">
-                                                <i data-lucide="file-text" class="w-4 h-4"></i>
-                                                <span>Deskripsi</span>
+                                                <i data-lucide="hash" class="w-4 h-4"></i>
+                                                <span>Nomor Invoice</span>
                                             </div>
                                         </th>
                                         <th class="text-left py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                                             <div class="flex items-center space-x-2">
                                                 <i data-lucide="user" class="w-4 h-4"></i>
+                                                <span>Pelanggan</span>
+                                            </div>
+                                        </th>
+                                        <th class="text-left py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                                            <div class="flex items-center space-x-2">
+                                                <i data-lucide="user-check" class="w-4 h-4"></i>
                                                 <span>Dicatat Oleh</span>
                                             </div>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-200 dark:divide-slate-700">
-                                    @forelse ($transactions as $transaction)
+                                    @forelse ($invoices as $invoice)
                                         <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-200">
                                             <td class="py-4 px-6">
                                                 <span class="text-slate-600 dark:text-slate-400">
-                                                    {{ $transaction->transaction_date->format('d M Y') }}
+                                                    {{ $invoice->invoice_date->format('d M Y') }}
                                                 </span>
                                             </td>
                                             <td class="py-4 px-6">
                                                 <span class="px-3 py-1 rounded-full text-xs font-semibold
-                                                    {{ $transaction->type == 'kredit' 
+                                                    {{ $invoice->type == 'kredit' 
                                                         ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-300' 
                                                         : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300' }}">
-                                                    {{ ucfirst($transaction->type) }}
+                                                    {{ ucfirst($invoice->type) }}
                                                 </span>
                                             </td>
                                             <td class="py-4 px-6 text-right">
                                                 <span class="font-semibold text-slate-900 dark:text-white">
-                                                    Rp {{ number_format($transaction->amount, 0, ',', '.') }}
+                                                    Rp {{ number_format($invoice->total_amount, 0, ',', '.') }}
                                                 </span>
                                             </td>
                                             <td class="py-4 px-6">
                                                 <span class="text-slate-600 dark:text-slate-400">
-                                                    {{ $transaction->description }}
+                                                    {{ $invoice->invoice_number }}
                                                 </span>
                                             </td>
                                             <td class="py-4 px-6">
                                                 <span class="text-slate-600 dark:text-slate-400">
-                                                    {{ $transaction->user->name ?? 'N/A' }}
+                                                    {{ $invoice->customer->name ?? 'N/A' }}
+                                                </span>
+                                            </td>
+                                            <td class="py-4 px-6">
+                                                <span class="text-slate-600 dark:text-slate-400">
+                                                    {{ $invoice->user->name ?? 'N/A' }}
                                                 </span>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="5" class="py-12 px-6 text-center">
+                                            <td colspan="6" class="py-12 px-6 text-center">
                                                 <div class="flex flex-col items-center space-y-4">
                                                     <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center">
                                                         <i data-lucide="file-x" class="w-8 h-8 text-slate-400"></i>
                                                     </div>
                                                     <div>
-                                                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Tidak ada transaksi</h3>
-                                                        <p class="text-slate-600 dark:text-slate-400">Tidak ada transaksi yang sesuai dengan filter</p>
+                                                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Tidak ada invoice</h3>
+                                                        <p class="text-slate-600 dark:text-slate-400">Tidak ada invoice yang sesuai dengan filter</p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -345,9 +356,9 @@
                         </div>
 
                         {{-- Pagination --}}
-                        @if($transactions->hasPages())
+                        @if($invoices->hasPages())
                             <div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
-                                {{ $transactions->appends(request()->except('page'))->links() }}
+                                {{ $invoices->appends(request()->except('page'))->links() }}
                             </div>
                         @endif
                     </div>

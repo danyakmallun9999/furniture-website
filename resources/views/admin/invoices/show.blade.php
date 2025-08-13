@@ -36,6 +36,12 @@
                             </div>
                             <div class="flex items-center space-x-3">
                                 <span class="px-4 py-2 rounded-full text-sm font-semibold
+                                    {{ $invoice->type == 'kredit' 
+                                        ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-300' 
+                                        : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300' }}">
+                                    {{ ucfirst($invoice->type) }}
+                                </span>
+                                <span class="px-4 py-2 rounded-full text-sm font-semibold
                                     @if ($invoice->payment_status == 'paid') 
                                         bg-emerald-100 text-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-300
                                     @elseif ($invoice->payment_status == 'pending') 
@@ -69,6 +75,10 @@
                                             <span class="font-medium text-slate-900 dark:text-white">
                                                 {{ $invoice->due_date ? $invoice->due_date->format('d M Y') : '-' }}
                                             </span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-slate-600 dark:text-slate-400">Tipe:</span>
+                                            <span class="font-medium text-slate-900 dark:text-white">{{ ucfirst($invoice->type) }}</span>
                                         </div>
                                         <div class="flex justify-between">
                                             <span class="text-slate-600 dark:text-slate-400">Dibuat Oleh:</span>

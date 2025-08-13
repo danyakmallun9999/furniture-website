@@ -57,6 +57,83 @@
                         </div>
                     </div>
 
+                    {{-- Filter Section --}}
+                    <div class="p-6 border-b border-slate-200 dark:border-slate-700">
+                        <form action="{{ route('invoices.index') }}" method="GET">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                {{-- Type Filter --}}
+                                <div>
+                                    <label for="type_filter" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <i data-lucide="activity" class="w-4 h-4 text-blue-500"></i>
+                                            <span>Tipe Invoice</span>
+                                        </div>
+                                    </label>
+                                    <select id="type_filter" name="type"
+                                        class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                                        <option value="">Semua Tipe</option>
+                                        <option value="kredit" {{ request('type') == 'kredit' ? 'selected' : '' }}>Kredit (Pemasukan)</option>
+                                        <option value="debit" {{ request('type') == 'debit' ? 'selected' : '' }}>Debit (Pengeluaran)</option>
+                                    </select>
+                                </div>
+
+                                {{-- Start Date --}}
+                                <div>
+                                    <label for="start_date" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <i data-lucide="calendar" class="w-4 h-4 text-blue-500"></i>
+                                            <span>Dari Tanggal</span>
+                                        </div>
+                                    </label>
+                                    <input type="date" id="start_date" name="start_date"
+                                        value="{{ request('start_date') }}"
+                                        class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                                </div>
+
+                                {{-- End Date --}}
+                                <div>
+                                    <label for="end_date" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <i data-lucide="calendar" class="w-4 h-4 text-blue-500"></i>
+                                            <span>Sampai Tanggal</span>
+                                        </div>
+                                    </label>
+                                    <input type="date" id="end_date" name="end_date"
+                                        value="{{ request('end_date') }}"
+                                        class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                                </div>
+
+                                {{-- Search --}}
+                                <div>
+                                    <label for="search" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <i data-lucide="search" class="w-4 h-4 text-blue-500"></i>
+                                            <span>Cari</span>
+                                        </div>
+                                    </label>
+                                    <input type="text" id="search" name="search"
+                                        value="{{ request('search') }}"
+                                        placeholder="Cari nomor/nama/jumlah..."
+                                        class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                                </div>
+                            </div>
+
+                            {{-- Filter Buttons --}}
+                            <div class="flex items-center justify-end mt-6 space-x-3">
+                                <a href="{{ route('invoices.index') }}"
+                                    class="group flex items-center px-6 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200">
+                                    <i data-lucide="refresh-cw" class="w-4 h-4 mr-2 group-hover:rotate-180 transition-transform"></i>
+                                    Reset
+                                </a>
+                                <button type="submit"
+                                    class="group flex items-center px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+                                    <i data-lucide="filter" class="w-4 h-4 mr-2 group-hover:scale-110 transition-transform"></i>
+                                    Filter
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
                     {{-- Table Section --}}
                     <div class="p-6">
                         <div class="overflow-x-auto">
@@ -85,6 +162,12 @@
                                             <div class="flex items-center space-x-2">
                                                 <i data-lucide="clock" class="w-4 h-4"></i>
                                                 <span>Jatuh Tempo</span>
+                                            </div>
+                                        </th>
+                                        <th class="text-left py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                                            <div class="flex items-center space-x-2">
+                                                <i data-lucide="activity" class="w-4 h-4"></i>
+                                                <span>Tipe</span>
                                             </div>
                                         </th>
                                         <th class="text-right py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
@@ -133,6 +216,14 @@
                                             <td class="py-4 px-6">
                                                 <span class="text-slate-600 dark:text-slate-400">
                                                     {{ $invoice->due_date ? $invoice->due_date->format('d M Y') : '-' }}
+                                                </span>
+                                            </td>
+                                            <td class="py-4 px-6">
+                                                <span class="px-3 py-1 rounded-full text-xs font-semibold
+                                                    {{ $invoice->type == 'kredit' 
+                                                        ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-300' 
+                                                        : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300' }}">
+                                                    {{ ucfirst($invoice->type) }}
                                                 </span>
                                             </td>
                                             <td class="py-4 px-6 text-right">
@@ -184,7 +275,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="8" class="py-12 px-6 text-center">
+                                            <td colspan="9" class="py-12 px-6 text-center">
                                                 <div class="flex flex-col items-center space-y-4">
                                                     <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center">
                                                         <i data-lucide="file-x" class="w-8 h-8 text-slate-400"></i>
@@ -209,7 +300,7 @@
                         {{-- Pagination --}}
                         @if($invoices->hasPages())
                             <div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
-                                {{ $invoices->links() }}
+                                {{ $invoices->appends(request()->except('page'))->links() }}
                             </div>
                         @endif
                     </div>

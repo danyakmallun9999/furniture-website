@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('invoices', InvoiceController::class);
 
-    Route::resource('transactions', TransactionController::class)->except(['show']);
+    // Route::resource('transactions', TransactionController::class)->except(['show']); // Dinonaktifkan
 
     Route::get('/reports/financial', [FinancialReportController::class, 'index'])->name('reports.financial');
     Route::get('/reports/financial/export', [FinancialReportController::class, 'export'])->name('reports.financial.export');

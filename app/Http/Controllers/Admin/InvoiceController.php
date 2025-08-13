@@ -21,11 +21,34 @@ class InvoiceController extends Controller
      */
     public function index(Request $request)
     {
+        $type = $request->input('type');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $search = $request->input('search');
+
         $invoices = Invoice::with(['customer', 'user'])
                             ->latest()
+                            ->when($type, function ($query, $type) {
+                                return $query->where('type', $type);
+                            })
+                            ->when($startDate, function ($query, $startDate) {
+                                return $query->whereDate('invoice_date', '>=', $startDate);
+                            })
+                            ->when($endDate, function ($query, $endDate) {
+                                return $query->whereDate('invoice_date', '<=', $endDate);
+                            })
+                            ->when($search, function ($query, $search) {
+                                return $query->where(function ($q) use ($search) {
+                                    $q->where('invoice_number', 'like', '%' . $search . '%')
+                                      ->orWhere('total_amount', 'like', '%' . $search . '%')
+                                      ->orWhereHas('customer', function ($qc) use ($search) {
+                                          $qc->where('name', 'like', '%' . $search . '%');
+                                      });
+                                });
+                            })
                             ->paginate(10);
 
-        return view('admin.invoices.index', compact('invoices'));
+        return view('admin.invoices.index', compact('invoices', 'type', 'startDate', 'endDate', 'search'));
     }
 
     /**
@@ -50,6 +73,7 @@ class InvoiceController extends Controller
             'invoice_number' => 'required|string|max:255|unique:invoices',
             'invoice_date' => 'required|date',
             'due_date' => 'nullable|date|after_or_equal:invoice_date',
+            'type' => 'required|in:kredit,debit',
             'total_amount' => 'required|numeric|min:0',
             'payment_status' => 'required|in:pending,paid,canceled',
             'notes' => 'nullable|string',
@@ -83,6 +107,7 @@ class InvoiceController extends Controller
                 'invoice_number' => $validatedData['invoice_number'],
                 'invoice_date' => $validatedData['invoice_date'],
                 'due_date' => $validatedData['due_date'],
+                'type' => $validatedData['type'],
                 'total_amount' => $validatedData['total_amount'],
                 'payment_status' => $validatedData['payment_status'],
                 'notes' => $validatedData['notes'],
@@ -148,6 +173,7 @@ class InvoiceController extends Controller
             'invoice_number' => ['required', 'string', 'max:255', Rule::unique('invoices')->ignore($invoice->id)], // Unique kecuali untuk invoice ini
             'invoice_date' => 'required|date',
             'due_date' => 'nullable|date|after_or_equal:invoice_date',
+            'type' => 'required|in:kredit,debit',
             'total_amount' => 'required|numeric|min:0',
             'payment_status' => 'required|in:pending,paid,canceled',
             'notes' => 'nullable|string',
@@ -183,6 +209,7 @@ class InvoiceController extends Controller
                 'invoice_number' => $validatedData['invoice_number'],
                 'invoice_date' => $validatedData['invoice_date'],
                 'due_date' => $validatedData['due_date'],
+                'type' => $validatedData['type'],
                 'total_amount' => $validatedData['total_amount'],
                 'payment_status' => $validatedData['payment_status'],
                 'notes' => $validatedData['notes'],
