@@ -137,58 +137,64 @@
                     {{-- Table Section --}}
                     <div class="p-6">
                         <div class="overflow-x-auto">
-                            <table class="w-full">
+                            <table class="w-full min-w-[1200px] text-sm">
                                 <thead>
                                     <tr class="border-b border-slate-200 dark:border-slate-700">
-                                        <th class="text-left py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                                        <th class="text-left py-3 px-4 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                                             <div class="flex items-center space-x-2">
                                                 <i data-lucide="hash" class="w-4 h-4"></i>
-                                                <span>Nomor Invoice</span>
+                                                <span>No Invoice</span>
                                             </div>
                                         </th>
-                                        <th class="text-left py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                                        <th class="text-left py-3 px-4 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                                            <div class="flex items-center space-x-2">
+                                                <i data-lucide="image" class="w-4 h-4"></i>
+                                                <span>Foto</span>
+                                            </div>
+                                        </th>
+                                        <th class="text-left py-3 px-4 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                                             <div class="flex items-center space-x-2">
                                                 <i data-lucide="user" class="w-4 h-4"></i>
                                                 <span>Pelanggan</span>
                                             </div>
                                         </th>
-                                        <th class="text-left py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                                        <th class="text-left py-3 px-4 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                                             <div class="flex items-center space-x-2">
                                                 <i data-lucide="calendar" class="w-4 h-4"></i>
-                                                <span>Tanggal Invoice</span>
+                                                <span>Tanggal</span>
                                             </div>
                                         </th>
-                                        <th class="text-left py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                                        <th class="text-left py-3 px-4 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                                             <div class="flex items-center space-x-2">
                                                 <i data-lucide="clock" class="w-4 h-4"></i>
-                                                <span>Jatuh Tempo</span>
+                                                <span>Tempo</span>
                                             </div>
                                         </th>
-                                        <th class="text-left py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                                        <th class="text-left py-3 px-4 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                                             <div class="flex items-center space-x-2">
                                                 <i data-lucide="activity" class="w-4 h-4"></i>
                                                 <span>Tipe</span>
                                             </div>
                                         </th>
-                                        <th class="text-right py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                                        <th class="text-right py-3 px-4 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                                             <div class="flex items-center justify-end space-x-2">
                                                 <i data-lucide="dollar-sign" class="w-4 h-4"></i>
                                                 <span>Total</span>
                                             </div>
                                         </th>
-                                        <th class="text-center py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                                        <th class="text-center py-3 px-4 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                                             <div class="flex items-center justify-center space-x-2">
                                                 <i data-lucide="activity" class="w-4 h-4"></i>
                                                 <span>Status</span>
                                             </div>
                                         </th>
-                                        <th class="text-left py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                                        <th class="text-left py-3 px-4 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                                             <div class="flex items-center space-x-2">
                                                 <i data-lucide="user-check" class="w-4 h-4"></i>
-                                                <span>Dibuat Oleh</span>
+                                                <span>Dibuat</span>
                                             </div>
                                         </th>
-                                        <th class="text-center py-4 px-6 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                                        <th class="text-center py-3 px-4 font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                                             <div class="flex items-center justify-center space-x-2">
                                                 <i data-lucide="settings" class="w-4 h-4"></i>
                                                 <span>Aksi</span>
@@ -199,7 +205,7 @@
                                 <tbody class="divide-y divide-slate-200 dark:divide-slate-700">
                                     @forelse ($invoices as $invoice)
                                         <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors duration-200">
-                                            <td class="py-4 px-6">
+                                            <td class="py-3 px-4">
                                                 <div class="flex items-center space-x-3">
                                                     <div class="w-8 h-8 bg-gradient-to-r from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
                                                         <i data-lucide="file-text" class="w-4 h-4 text-white"></i>
@@ -207,31 +213,44 @@
                                                     <span class="font-medium text-slate-900 dark:text-white">{{ $invoice->invoice_number }}</span>
                                                 </div>
                                             </td>
-                                            <td class="py-4 px-6">
+                                            <td class="py-3 px-4">
+                                                @if($invoice->receipt_image_path)
+                                                    <img src="{{ asset('storage/'.$invoice->receipt_image_path) }}" alt="Nota" class="w-12 h-12 object-cover rounded-lg border border-slate-200 dark:border-slate-700">
+                                                @else
+                                                    <div class="w-12 h-12 rounded-lg border border-dashed border-slate-300 dark:border-slate-700 flex items-center justify-center text-slate-400">
+                                                        <i data-lucide="image-off" class="w-5 h-5"></i>
+                                                    </div>
+                                                @endif
+                                            </td>
+                                            <td class="py-3 px-4">
                                                 <span class="text-slate-600 dark:text-slate-400">{{ $invoice->customer->name ?? 'N/A' }}</span>
                                             </td>
-                                            <td class="py-4 px-6">
+                                            <td class="py-3 px-4">
                                                 <span class="text-slate-600 dark:text-slate-400">{{ $invoice->invoice_date->format('d M Y') }}</span>
                                             </td>
-                                            <td class="py-4 px-6">
+                                            <td class="py-3 px-4">
                                                 <span class="text-slate-600 dark:text-slate-400">
                                                     {{ $invoice->due_date ? $invoice->due_date->format('d M Y') : '-' }}
                                                 </span>
                                             </td>
-                                            <td class="py-4 px-6">
+                                            <td class="py-3 px-4">
                                                 <span class="px-3 py-1 rounded-full text-xs font-semibold
-                                                    {{ $invoice->type == 'kredit' 
-                                                        ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-300' 
-                                                        : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300' }}">
+                                                    @if ($invoice->type == 'kredit') 
+                                                        bg-emerald-100 text-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-300
+                                                    @elseif ($invoice->type == 'pending') 
+                                                        bg-amber-100 text-amber-800 dark:bg-amber-900/20 dark:text-amber-300
+                                                    @else 
+                                                        bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300 
+                                                    @endif">
                                                     {{ ucfirst($invoice->type) }}
                                                 </span>
                                             </td>
-                                            <td class="py-4 px-6 text-right">
+                                            <td class="py-3 px-4 text-right">
                                                 <span class="font-semibold text-slate-900 dark:text-white">
                                                     Rp {{ number_format($invoice->total_amount, 0, ',', '.') }}
                                                 </span>
                                             </td>
-                                            <td class="py-4 px-6 text-center">
+                                            <td class="py-3 px-4 text-center">
                                                 <span class="px-3 py-1 rounded-full text-xs font-semibold
                                                     @if ($invoice->payment_status == 'paid') 
                                                         bg-emerald-100 text-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-300
@@ -243,10 +262,10 @@
                                                     {{ ucfirst($invoice->payment_status) }}
                                                 </span>
                                             </td>
-                                            <td class="py-4 px-6">
+                                            <td class="py-3 px-4">
                                                 <span class="text-slate-600 dark:text-slate-400">{{ $invoice->user->name ?? 'N/A' }}</span>
                                             </td>
-                                            <td class="py-4 px-6">
+                                            <td class="py-3 px-4">
                                                 <div class="flex items-center justify-center space-x-2">
                                                     <a href="{{ route('invoices.show', $invoice->id) }}"
                                                         class="group p-2 rounded-xl bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-200 transform hover:scale-110"
@@ -275,7 +294,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="9" class="py-12 px-6 text-center">
+                                            <td colspan="10" class="py-12 px-6 text-center">
                                                 <div class="flex flex-col items-center space-y-4">
                                                     <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center">
                                                         <i data-lucide="file-x" class="w-8 h-8 text-slate-400"></i>

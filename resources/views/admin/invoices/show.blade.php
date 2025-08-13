@@ -102,6 +102,18 @@
                             <div class="space-y-4">
                                 <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4">
                                     <h4 class="font-semibold text-slate-900 dark:text-white mb-3 flex items-center">
+                                        <i data-lucide="image" class="w-4 h-4 mr-2 text-blue-500"></i>
+                                        Foto Nota
+                                    </h4>
+                                    @if($invoice->receipt_image_path)
+                                        <img src="{{ asset('storage/'.$invoice->receipt_image_path) }}" alt="Receipt Image" class="max-h-80 rounded-lg border border-slate-200 dark:border-slate-700">
+                                    @else
+                                        <p class="text-slate-600 dark:text-slate-400">Tidak ada foto nota yang diunggah.</p>
+                                    @endif
+                                </div>
+
+                                <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4">
+                                    <h4 class="font-semibold text-slate-900 dark:text-white mb-3 flex items-center">
                                         <i data-lucide="user" class="w-4 h-4 mr-2 text-blue-500"></i>
                                         Detail Pelanggan
                                     </h4>

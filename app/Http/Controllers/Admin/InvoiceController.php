@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB; // <--- TAMBAHKAN BARIS INI
 use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Rule; // Penting: Sudah ada
 use Illuminate\Support\Str; // Untuk Str::upper(Str::random(4)) di create view, meskipun tidak dipakai di controller ini, ada baiknya ada.
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
@@ -77,6 +78,7 @@ class InvoiceController extends Controller
             'total_amount' => 'required|numeric|min:0',
             'payment_status' => 'required|in:pending,paid,canceled',
             'notes' => 'nullable|string',
+            'receipt_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'items' => 'required|array|min:1',
             'items.*.product_id' => 'nullable|exists:products,id',
             'items.*.product_name_at_sale' => 'required|string|max:255',
@@ -101,6 +103,11 @@ class InvoiceController extends Controller
                 $customerId = $newCustomer->id;
             }
 
+            $receiptImagePath = null;
+            if ($request->hasFile('receipt_image')) {
+                $receiptImagePath = $request->file('receipt_image')->store('receipts', 'public');
+            }
+
             $invoice = Invoice::create([
                 'customer_id' => $customerId,
                 'user_id' => Auth::id(),
@@ -111,6 +118,7 @@ class InvoiceController extends Controller
                 'total_amount' => $validatedData['total_amount'],
                 'payment_status' => $validatedData['payment_status'],
                 'notes' => $validatedData['notes'],
+                'receipt_image_path' => $receiptImagePath,
             ]);
 
             foreach ($validatedData['items'] as $itemData) {
@@ -177,6 +185,7 @@ class InvoiceController extends Controller
             'total_amount' => 'required|numeric|min:0',
             'payment_status' => 'required|in:pending,paid,canceled',
             'notes' => 'nullable|string',
+            'receipt_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'items' => 'required|array|min:1', // Harus ada setidaknya satu item
             'items.*.item_id' => 'nullable|integer', // ID item jika sudah ada
             'items.*.product_id' => 'nullable|exists:products,id',
@@ -202,8 +211,7 @@ class InvoiceController extends Controller
                 $customerId = $newCustomer->id;
             }
 
-            // 1. Update Invoice Utama
-            $invoice->update([
+            $dataToUpdate = [
                 'customer_id' => $customerId,
                 // 'user_id' tidak diubah karena ini adalah yang membuat invoice
                 'invoice_number' => $validatedData['invoice_number'],
@@ -213,7 +221,19 @@ class InvoiceController extends Controller
                 'total_amount' => $validatedData['total_amount'],
                 'payment_status' => $validatedData['payment_status'],
                 'notes' => $validatedData['notes'],
-            ]);
+            ];
+
+            if ($request->hasFile('receipt_image')) {
+                // Hapus gambar lama jika ada
+                if ($invoice->receipt_image_path) {
+                    Storage::disk('public')->delete($invoice->receipt_image_path);
+                }
+                // Simpan yang baru
+                $dataToUpdate['receipt_image_path'] = $request->file('receipt_image')->store('receipts', 'public');
+            }
+
+            // 1. Update Invoice Utama
+            $invoice->update($dataToUpdate);
 
             // 2. Update Item Invoice (Sinkronisasi)
             $existingItemIds = $invoice->items->pluck('id')->toArray();

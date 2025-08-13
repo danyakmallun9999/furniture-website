@@ -58,7 +58,7 @@
             <div class="group relative">
                 <div class="absolute inset-0 bg-slate-100 dark:bg-slate-800 rounded-2xl opacity-75 group-hover:opacity-100 blur-sm group-hover:blur-none transition-all duration-300"></div>
                 <div class="relative bg-white dark:bg-slate-900 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700">
-                    <form action="{{ route('invoices.update', $invoice->id) }}" method="POST" x-data="invoiceForm(
+                    <form action="{{ route('invoices.update', $invoice->id) }}" method="POST" enctype="multipart/form-data" x-data="invoiceForm(
                         JSON.parse('{{ $invoice->toJson() }}'),
                         JSON.parse('{{ $invoice->items->toJson() }}'),
                         '{{ old('customer_input_method', $invoice->customer_id ? 'existing' : 'new') }}'
@@ -269,6 +269,31 @@
                                         {{ $message }}
                                     </p>
                                 @enderror
+                            </div>
+
+                            {{-- Receipt Image (Optional) --}}
+                            <div class="mt-6">
+                                <label for="receipt_image" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                    <div class="flex items-center space-x-2">
+                                        <i data-lucide="image" class="w-4 h-4 text-blue-500"></i>
+                                        <span>Foto Nota (Opsional)</span>
+                                    </div>
+                                </label>
+                                <input type="file" id="receipt_image" name="receipt_image"
+                                    accept="image/jpeg,image/png,image/jpg,image/webp"
+                                    class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                                @error('receipt_image')
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                        <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                                @if($invoice->receipt_image_path)
+                                    <div class="mt-3">
+                                        <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Gambar saat ini:</p>
+                                        <img src="{{ asset('storage/'.$invoice->receipt_image_path) }}" alt="Receipt Image" class="max-h-48 rounded-lg border border-slate-200 dark:border-slate-700">
+                                    </div>
+                                @endif
                             </div>
                         </div>
 

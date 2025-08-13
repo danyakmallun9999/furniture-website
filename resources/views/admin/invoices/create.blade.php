@@ -58,7 +58,7 @@
             <div class="group relative">
                 <div class="absolute inset-0 bg-slate-100 dark:bg-slate-800 rounded-2xl opacity-75 group-hover:opacity-100 blur-sm group-hover:blur-none transition-all duration-300"></div>
                 <div class="relative bg-white dark:bg-slate-900 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700">
-                    <form action="{{ route('invoices.store') }}" method="POST" x-data="invoiceForm()">
+                    <form action="{{ route('invoices.store') }}" method="POST" enctype="multipart/form-data" x-data="invoiceForm()">
                         @csrf
 
                         {{-- Header Section --}}
@@ -246,7 +246,7 @@
                             </div>
 
                             {{-- Notes --}}
-                            <div class="mt-6">
+                            <div class="md:col-span-2">
                                 <label for="notes" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                     <div class="flex items-center space-x-2">
                                         <i data-lucide="file-text" class="w-4 h-4 text-blue-500"></i>
@@ -257,6 +257,25 @@
                                     class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
                                     placeholder="Tambahkan catatan untuk invoice ini">{{ old('notes') }}</textarea>
                                 @error('notes')
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                        <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+
+                            {{-- Receipt Image (Optional) --}}
+                            <div class="md:col-span-2">
+                                <label for="receipt_image" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                    <div class="flex items-center space-x-2">
+                                        <i data-lucide="image" class="w-4 h-4 text-blue-500"></i>
+                                        <span>Foto Nota (Opsional)</span>
+                                    </div>
+                                </label>
+                                <input type="file" id="receipt_image" name="receipt_image"
+                                    accept="image/jpeg,image/png,image/jpg,image/webp"
+                                    class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                                @error('receipt_image')
                                     <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
                                         <i data-lucide="alert-circle" class="w-4 h-4 mr-1"></i>
                                         {{ $message }}

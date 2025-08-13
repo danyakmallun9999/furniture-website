@@ -19,6 +19,7 @@ class Invoice extends Model
         'total_amount',
         'payment_status',
         'notes',
+        'receipt_image_path',
     ];
 
     protected $casts = [
