@@ -64,7 +64,7 @@
             <div class="w-full md:w-1/2 p-10 space-y-8 flex flex-col justify-center">
                 <div class="text-center">
                     <a href="{{ route('homepage') }}" class="inline-block mb-6">
-                        <h1 class="text-4xl font-bold gradient-text">Ajining Furniture</h1>
+                        <h1 class="text-4xl font-bold gradient-text">Login Admin Furniture</h1>
                     </a>
                     <h2 class="mt-6 text-3xl font-bold text-gray-900">
                         Masuk ke Akun Anda

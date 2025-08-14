@@ -162,6 +162,14 @@
                         Produk Mebel
                     </a>
 
+                    {{-- Invoices --}}
+                    <a href="{{ route('invoices.index') }}"
+                        class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('invoices.*') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
+                        <i data-lucide="file-text"
+                            class="w-5 h-5 mr-3 {{ request()->routeIs('invoices.*') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
+                        Manajemen Transaksi
+                    </a>
+                    
                     {{-- Financial Reports --}}
                     <a href="{{ route('reports.financial') }}"
                         class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('reports.financial') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
@@ -170,13 +178,6 @@
                         Laporan Keuangan
                     </a>
 
-                    {{-- Invoices --}}
-                    <a href="{{ route('invoices.index') }}"
-                        class="nav-item flex items-center px-4 py-3 text-sm font-medium rounded-xl {{ request()->routeIs('invoices.*') ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} group">
-                        <i data-lucide="file-text"
-                            class="w-5 h-5 mr-3 {{ request()->routeIs('invoices.*') ? 'text-white' : 'text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300' }}"></i>
-                        Manajemen Transaksi
-                    </a>
 
                     {{-- Divider --}}
                     <div class="border-t border-slate-200 dark:border-slate-700 my-4"></div>
